@@ -15,7 +15,7 @@ export function Hero({ content, contact }: HeroProps) {
   return (
     <section 
       id="hero" 
-      className="relative min-h-screen flex items-start overflow-hidden pt-20 pb-12 md:pt-32 md:pb-20"
+      className="relative min-h-screen flex items-start overflow-hidden pt-20 pb-8 md:pt-32 md:pb-20"
       style={{
         backgroundImage: `url(${HeroBackground})`,
         backgroundSize: 'cover',
@@ -29,22 +29,22 @@ export function Hero({ content, contact }: HeroProps) {
       {/* Dark gradient at bottom for stats section */}
       <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-0"></div>
       
-      <div className="container mx-auto px-4 relative z-10 pt-16">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-8 md:pt-16">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 md:gap-12">
           {/* Text Content */}
-          <div className="flex-1 text-left">
+          <div className="flex-1 text-left w-full">
             <BlurFade delay={0.1} inView>
-              <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-[10px] uppercase tracking-[0.3em] font-bold text-white/90 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
-                <span className="relative flex h-2 w-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 mb-4 md:mb-6 text-[9px] md:text-[10px] uppercase tracking-[0.25em] md:tracking-[0.3em] font-bold text-white/90 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
+                <span className="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                  <span className="relative inline-flex rounded-full h-full w-full bg-primary"></span>
                 </span>
                 {content.subheading}
               </div>
             </BlurFade>
 
             <BlurFade delay={0.25} inView>
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 drop-shadow-lg" style={{ wordSpacing: '-0.05em', letterSpacing: '-0.02em', lineHeight: '0.95' }}>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 md:mb-6 drop-shadow-lg leading-tight" style={{ wordSpacing: '-0.05em', letterSpacing: '-0.02em' }}>
                 <TextAnimate animation="blurInUp" by="line" once>
                   {content.heading.split(' ').slice(0, 2).join(' ')}
                 </TextAnimate>
@@ -58,40 +58,40 @@ export function Hero({ content, contact }: HeroProps) {
             </BlurFade>
 
             <BlurFade delay={0.4} inView>
-              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 max-w-xl font-medium leading-relaxed drop-shadow-md">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-6 md:mb-8 max-w-xl font-medium leading-relaxed drop-shadow-md">
                 {content.tagline}
               </p>
             </BlurFade>
 
             <BlurFade delay={0.55} inView>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-8">
-                <a href={content.ctaLink}>
+              <div className="flex flex-col items-stretch gap-4 md:gap-8">
+                <a href={content.ctaLink} className="inline-block">
                   <Button
                     size="lg"
-                    className="bg-primary hover:bg-primary/90 text-white rounded-none h-16 px-10 text-sm font-bold uppercase tracking-widest transition-all duration-300 shadow-xl shadow-primary/20 group"
+                    className="bg-primary hover:bg-primary/90 text-white rounded-none h-14 md:h-16 w-full sm:w-auto px-8 md:px-10 text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-300 shadow-xl shadow-primary/20 group"
                   >
                     {content.ctaText}
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </a>
                 <a
                   href={`tel:${contact.phone}`}
-                  className="flex items-center gap-4 group"
+                  className="flex items-center gap-3 md:gap-4 group"
                 >
-                  <div className="w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center group-hover:bg-primary/5 transition-colors">
-                    <Phone className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-primary/20 flex items-center justify-center group-hover:bg-primary/5 transition-colors flex-shrink-0">
+                    <Phone className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] uppercase tracking-widest text-white/70 font-bold">Call Now</span>
-                    <span className="text-lg font-serif font-bold text-white">{contact.phone}</span>
+                    <span className="text-[9px] md:text-[10px] uppercase tracking-widest text-white/70 font-bold">Call Now</span>
+                    <span className="text-base md:text-lg font-serif font-bold text-white">{contact.phone}</span>
                   </div>
                 </a>
               </div>
             </BlurFade>
           </div>
 
-          {/* Image & Globe Side */}
-          <div className="flex-1 relative">
+          {/* Image & Globe Side - Hidden on mobile, shown on large screens */}
+          <div className="hidden lg:flex flex-1 relative">
             <BlurFade delay={0.6} inView className="relative z-20">
               <div className="relative aspect-[4/5] max-w-[400px] mx-auto overflow-hidden border-8 border-white shadow-2xl">
                 <img
@@ -109,25 +109,37 @@ export function Hero({ content, contact }: HeroProps) {
           </div>
         </div>
 
+        {/* Mobile Image - Only shown on small screens, positioned at bottom */}
+        <BlurFade delay={0.6} inView className="lg:hidden relative z-20 mt-8">
+          <div className="relative aspect-[3/4] max-w-[280px] mx-auto overflow-hidden border-4 border-white shadow-2xl">
+            <img
+              src={EnochImage}
+              alt="Attorney Enoch P. Hicks"
+              className="w-full h-full object-cover grayscale-[0.2] transition-all duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-secondary/40 to-transparent opacity-60"></div>
+          </div>
+        </BlurFade>
+
         {/* Stats Section */}
         <BlurFade delay={0.7} inView>
-          <div className="mt-16 md:mt-32 pt-8 border-t border-white/40 relative z-10">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              <div className="text-center px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
-                <div className="text-4xl md:text-5xl font-serif font-bold text-primary mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">9+</div>
-                <div className="text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Years Experience</div>
+          <div className="mt-8 md:mt-16 lg:mt-32 pt-6 md:pt-8 border-t border-white/40 relative z-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
+              <div className="text-center px-3 md:px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
+                <div className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary mb-1 md:mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">9+</div>
+                <div className="text-xs md:text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Years Experience</div>
               </div>
-              <div className="text-center px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
-                <div className="text-4xl md:text-5xl font-serif font-bold text-primary mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">500+</div>
-                <div className="text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Cases Handled</div>
+              <div className="text-center px-3 md:px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
+                <div className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary mb-1 md:mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">500+</div>
+                <div className="text-xs md:text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Cases Handled</div>
               </div>
-              <div className="text-center px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
-                <div className="text-4xl md:text-5xl font-serif font-bold text-primary mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">3x</div>
-                <div className="text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Super Lawyers</div>
+              <div className="text-center px-3 md:px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
+                <div className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary mb-1 md:mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">3x</div>
+                <div className="text-xs md:text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Super Lawyers</div>
               </div>
-              <div className="text-center px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
-                <div className="text-4xl md:text-5xl font-serif font-bold text-primary mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">100%</div>
-                <div className="text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Client Focused</div>
+              <div className="text-center px-3 md:px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
+                <div className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary mb-1 md:mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">100%</div>
+                <div className="text-xs md:text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Client Focused</div>
               </div>
             </div>
           </div>

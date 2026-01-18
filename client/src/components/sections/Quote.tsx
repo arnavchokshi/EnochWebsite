@@ -11,7 +11,7 @@ export function Quote({ content }: QuoteProps) {
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-secondary relative overflow-hidden">
       {/* Globe decorative element */}
-      <div className="absolute top-20 -right-20 w-96 h-96 opacity-30 pointer-events-none z-0">
+      <div className="absolute top-[120px] -right-20 w-96 h-96 opacity-30 pointer-events-none z-0">
         <Globe className="w-full h-full" />
       </div>
       

@@ -140,9 +140,17 @@ export function Footer({ contact, settings }: FooterProps) {
           <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">
             {settings.copyright.replace("2025", String(currentYear))}
           </p>
-          <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">
-            Attorney Advertising
-          </p>
+          <div className="flex items-center gap-6">
+            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">
+              Attorney Advertising
+            </p>
+            <Link
+              to="/admin/login"
+              className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 hover:text-gray-400 transition-colors"
+            >
+              Admin
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
