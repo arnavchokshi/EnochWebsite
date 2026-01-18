@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@ephfirm.com",
+      "password": "$2a$10$placeholder_hash_will_be_replaced",
+      "name": "Enoch P. Hicks",
+      "role": "admin"
+    }
+  ]
+}
