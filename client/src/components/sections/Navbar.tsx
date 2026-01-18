@@ -85,10 +85,10 @@ export function Navbar({ contact, settings }: NavbarProps) {
       }`}
     >
       {/* Main Nav - Single Row */}
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto pl-0 pr-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group -ml-4 md:-ml-6">
             <div className="transition-transform group-hover:scale-110 duration-300 flex-shrink-0">
               <img 
                 src={LogoImage} 
