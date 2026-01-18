@@ -29,7 +29,7 @@ export function PracticeAreas({ content }: PracticeAreasProps) {
   };
 
   return (
-    <section className="py-32 bg-white relative overflow-hidden" id="practice-areas">
+    <section className="py-16 md:py-24 lg:py-32 bg-white relative overflow-hidden" id="practice-areas">
       {/* Subtle background element */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 skew-x-[-12deg] translate-x-1/2 -z-10"></div>
       
@@ -71,11 +71,11 @@ export function PracticeAreas({ content }: PracticeAreasProps) {
                         <IconComponent className="w-10 h-10 text-primary transition-transform duration-500 group-hover:scale-110" />
                       </div>
                       
-                      <h4 className="text-2xl font-serif font-bold text-secondary mb-4">
+                      <h4 className="text-xl sm:text-2xl font-serif font-bold text-secondary mb-4">
                         {area.title}
                       </h4>
                       
-                      <p className="text-gray-600 mb-8 leading-relaxed line-clamp-3">
+                      <p className="text-sm md:text-base text-gray-600 mb-8 leading-relaxed line-clamp-3">
                         {area.description}
                       </p>
                       

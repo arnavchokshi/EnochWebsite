@@ -63,7 +63,7 @@ export function BusinessLaw() {
       
       {/* Hero Section */}
       <section 
-        className="py-32 relative overflow-hidden"
+        className="py-20 md:py-32 relative overflow-hidden"
         style={{
           backgroundImage: `url(${BusinessLawBg})`,
           backgroundSize: 'cover',
@@ -80,11 +80,11 @@ export function BusinessLaw() {
               <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-8 backdrop-blur-sm">
                 <Briefcase className="w-10 h-10 text-primary" />
               </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 drop-shadow-lg">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 drop-shadow-lg">
                 Business Law
               </h1>
               <div className="h-1 w-24 bg-primary mx-auto mb-8"></div>
-              <p className="text-2xl md:text-3xl font-serif text-white/90 mb-4 drop-shadow-md">
+              <p className="text-xl sm:text-2xl md:text-3xl font-serif text-white/90 mb-4 drop-shadow-md">
                 Georgia Business Law Attorney – Protecting Your Business & Your Future
               </p>
             </div>
@@ -93,13 +93,13 @@ export function BusinessLaw() {
       </section>
 
       {/* Introduction & Other Practice Areas */}
-      <section className="py-16 bg-white">
+      <section className="py-8 md:py-12 lg:py-16 bg-white">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto">
               <div className="grid md:grid-cols-3 gap-8 mb-12">
                 <div className="md:col-span-2">
-                  <p className="text-lg text-gray-700 leading-relaxed">
+                  <p className="text-sm md:text-base lg:text-lg text-gray-700 leading-relaxed">
                     Running a business requires careful legal planning. We provide legal solutions tailored to Georgia business owners, entrepreneurs, and corporate executives.
                   </p>
                 </div>
@@ -125,11 +125,11 @@ export function BusinessLaw() {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-8 md:py-12 lg:py-16 bg-slate-50">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-serif font-bold text-secondary mb-8 text-center">
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-secondary mb-8 text-center">
                 Our Services
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -182,7 +182,7 @@ export function BusinessLaw() {
       </section>
 
       {/* Why Choose & CTA Combined */}
-      <section className="py-16 bg-white">
+      <section className="py-8 md:py-12 lg:py-16 bg-white">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto">
@@ -215,14 +215,14 @@ export function BusinessLaw() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-secondary text-white">
+      <section className="py-8 md:py-12 lg:py-16 bg-secondary text-white">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-serif font-bold mb-4">
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-4">
                 Schedule a Free Consultation
               </h2>
-              <p className="text-lg text-white/90 mb-8">
+              <p className="text-base md:text-lg text-white/90 mb-8">
                 Expert legal protection for your business needs.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">

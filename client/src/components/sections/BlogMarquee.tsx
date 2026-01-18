@@ -20,14 +20,14 @@ const postImageMap: Record<string, string> = {
 
 export function BlogMarquee({ content }: BlogMarqueeProps) {
   return (
-    <section className="py-24 bg-background overflow-hidden">
+    <section className="py-12 md:py-24 bg-background overflow-hidden">
       <div className="container mx-auto px-4 mb-12">
         <BlurFade delay={0.1} inView>
           <div className="text-center">
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground mb-4">
               {content.sectionTitle}
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
               {content.sectionDescription}
             </p>
           </div>

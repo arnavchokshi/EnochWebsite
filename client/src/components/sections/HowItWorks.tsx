@@ -60,7 +60,7 @@ export function HowItWorks({ content }: HowItWorksProps) {
   };
 
   return (
-    <section className="py-32 bg-slate-50 relative overflow-hidden" id="how-it-works">
+    <section className="py-16 md:py-32 bg-slate-50 relative overflow-hidden" id="how-it-works">
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 min-h-[600px]">
           {/* Title Section - Left Side */}
@@ -69,10 +69,10 @@ export function HowItWorks({ content }: HowItWorksProps) {
               <h2 className="text-sm uppercase tracking-[0.4em] font-bold text-primary mb-4">
                 Our Process
               </h2>
-              <h3 className="text-4xl md:text-5xl font-serif font-bold text-secondary mb-6">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-secondary mb-6">
                 {content.sectionTitle}
               </h3>
-              <p className="mt-6 text-lg text-gray-500 mb-8">
+              <p className="mt-6 text-base md:text-lg text-gray-500 mb-8">
                 {content.sectionDescription}
               </p>
             </div>
@@ -119,10 +119,10 @@ export function HowItWorks({ content }: HowItWorksProps) {
 
             {/* Current Step Info */}
             <div className="mt-8 pt-8 border-t border-gray-200">
-              <h4 className="text-2xl font-serif font-bold text-secondary mb-4">
+              <h4 className="text-lg md:text-xl lg:text-2xl font-serif font-bold text-secondary mb-4">
                 {content.steps[currentIndex].title}
               </h4>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-base md:text-lg text-gray-600 leading-relaxed">
                 {content.steps[currentIndex].description}
               </p>
             </div>

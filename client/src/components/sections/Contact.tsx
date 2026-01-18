@@ -46,23 +46,23 @@ export function Contact({ content }: ContactProps) {
   ];
 
   return (
-    <section className="py-32 bg-white" id="contact">
+    <section className="py-16 md:py-24 lg:py-32 bg-white" id="contact">
       <div className="container mx-auto px-4">
         <BlurFade delay={0.1} inView>
           <div className="text-center mb-24">
             <h2 className="text-sm uppercase tracking-[0.4em] font-bold text-primary mb-4">
               Get In Touch
             </h2>
-            <h3 className="text-4xl md:text-5xl font-serif font-bold text-secondary max-w-3xl mx-auto">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-secondary max-w-3xl mx-auto">
               Schedule Your Free Consultation
             </h3>
-            <p className="mt-6 text-lg text-gray-500 max-w-2xl mx-auto">
+            <p className="mt-6 text-base md:text-lg text-gray-500 max-w-2xl mx-auto">
               Our team is ready to provide the guidance and representation you deserve.
             </p>
           </div>
         </BlurFade>
 
-        <div className="grid lg:grid-cols-2 gap-20 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 md:gap-20 max-w-6xl mx-auto">
           {/* Contact Info */}
           <BlurFade delay={0.2} inView>
             <div className="space-y-12">
@@ -74,7 +74,7 @@ export function Contact({ content }: ContactProps) {
                   <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">Phone</h4>
                   <a
                     href={`tel:${content.phone}`}
-                    className="text-2xl font-serif font-bold text-secondary hover:text-primary transition-colors"
+                    className="text-xl md:text-2xl font-serif font-bold text-secondary hover:text-primary transition-colors"
                   >
                     {content.phone}
                   </a>
@@ -89,7 +89,7 @@ export function Contact({ content }: ContactProps) {
                   <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">Email</h4>
                   <a
                     href={`mailto:${content.email}`}
-                    className="text-2xl font-serif font-bold text-secondary hover:text-primary transition-colors break-all"
+                    className="text-xl md:text-2xl font-serif font-bold text-secondary hover:text-primary transition-colors break-all"
                   >
                     {content.email}
                   </a>
@@ -102,7 +102,7 @@ export function Contact({ content }: ContactProps) {
                 </div>
                 <div>
                   <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">Location</h4>
-                  <p className="text-xl font-serif font-bold text-secondary">
+                  <p className="text-lg md:text-xl font-serif font-bold text-secondary">
                     {content.address.street}
                     <br />
                     {content.address.city}, {content.address.state} {content.address.zip}
@@ -162,8 +162,8 @@ export function Contact({ content }: ContactProps) {
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="grid md:grid-cols-2 gap-8">
+                <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                     <div className="space-y-3">
                       <Label htmlFor="name" className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Full Name</Label>
                       <Input
@@ -193,7 +193,7 @@ export function Contact({ content }: ContactProps) {
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-8">
+                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                     <div className="space-y-3">
                       <Label htmlFor="phone" className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Phone Number</Label>
                       <Input

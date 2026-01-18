@@ -15,7 +15,7 @@ export function Hero({ content, contact }: HeroProps) {
   return (
     <section 
       id="hero" 
-      className="relative min-h-screen flex items-start overflow-hidden pt-32 pb-20"
+      className="relative min-h-screen flex items-start overflow-hidden pt-20 pb-12 md:pt-32 md:pb-20"
       style={{
         backgroundImage: `url(${HeroBackground})`,
         backgroundSize: 'cover',
@@ -44,7 +44,7 @@ export function Hero({ content, contact }: HeroProps) {
             </BlurFade>
 
             <BlurFade delay={0.25} inView>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 drop-shadow-lg" style={{ wordSpacing: '-0.05em', letterSpacing: '-0.02em', lineHeight: '0.95' }}>
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 drop-shadow-lg" style={{ wordSpacing: '-0.05em', letterSpacing: '-0.02em', lineHeight: '0.95' }}>
                 <TextAnimate animation="blurInUp" by="line" once>
                   {content.heading.split(' ').slice(0, 2).join(' ')}
                 </TextAnimate>
@@ -58,7 +58,7 @@ export function Hero({ content, contact }: HeroProps) {
             </BlurFade>
 
             <BlurFade delay={0.4} inView>
-              <p className="text-lg md:text-xl text-white/90 mb-8 max-w-xl font-medium leading-relaxed drop-shadow-md">
+              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 max-w-xl font-medium leading-relaxed drop-shadow-md">
                 {content.tagline}
               </p>
             </BlurFade>
@@ -111,7 +111,7 @@ export function Hero({ content, contact }: HeroProps) {
 
         {/* Stats Section */}
         <BlurFade delay={0.7} inView>
-          <div className="mt-32 pt-8 border-t border-white/40 relative z-10">
+          <div className="mt-16 md:mt-32 pt-8 border-t border-white/40 relative z-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
               <div className="text-center px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
                 <div className="text-4xl md:text-5xl font-serif font-bold text-primary mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">9+</div>

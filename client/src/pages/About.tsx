@@ -66,7 +66,7 @@ export function About() {
       <Navbar contact={content.contact} settings={content.siteSettings} />
       
       {/* Hero Section with Headshot */}
-      <section className="py-16 bg-white relative overflow-hidden">
+      <section className="py-8 md:py-16 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
@@ -90,14 +90,14 @@ export function About() {
               {/* Right: Intro Content */}
               <div className="space-y-6">
                 <div>
-                  <h1 className="text-4xl md:text-5xl font-serif font-bold text-secondary mb-4">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-secondary mb-4">
                     Enoch P. Hicks
                   </h1>
-                  <p className="text-xl text-secondary/80 mb-6">Georgia Lawyer</p>
-                  <h2 className="text-2xl font-serif font-bold text-secondary mb-4">
+                  <p className="text-lg md:text-xl text-secondary/80 mb-6">Georgia Lawyer</p>
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-secondary mb-4">
                     A Personalized Approach to Legal Representation
                   </h2>
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-sm md:text-base text-gray-700 leading-relaxed">
                     When seeking legal counsel, you need an attorney who not only possesses deep legal knowledge but also values client relationships. As the founder of The Law Office of Enoch P. Hicks, I provide personalized legal strategies dedicated to serving individuals and businesses.
                   </p>
                 </div>
@@ -108,7 +108,7 @@ export function About() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-8 md:py-16 bg-slate-50">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -138,7 +138,7 @@ export function About() {
       </section>
 
       {/* Experience & Education - Two Column */}
-      <section className="py-16 bg-white">
+      <section className="py-8 md:py-16 bg-white">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
@@ -146,15 +146,15 @@ export function About() {
               <div>
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-1 bg-primary"></div>
-                  <h2 className="text-3xl font-serif font-bold text-secondary">
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-secondary">
                     Career Experience
                   </h2>
                 </div>
-                <p className="text-gray-600 mb-8">
+                <p className="text-sm md:text-base text-gray-600 mb-8">
                   Licensed since 2016, with extensive experience in various legal capacities:
                 </p>
                 <div className="space-y-6">
-                  <Card className="p-6 border-primary/20 hover:shadow-md transition-shadow">
+                  <Card className="p-4 md:p-6 border-primary/20 hover:shadow-md transition-shadow">
                     <div className="flex gap-4">
                       <Briefcase className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                       <div>
@@ -167,7 +167,7 @@ export function About() {
                       </div>
                     </div>
                   </Card>
-                  <Card className="p-6 border-primary/20 hover:shadow-md transition-shadow">
+                  <Card className="p-4 md:p-6 border-primary/20 hover:shadow-md transition-shadow">
                     <div className="flex gap-4">
                       <Scale className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                       <div>
@@ -180,7 +180,7 @@ export function About() {
                       </div>
                     </div>
                   </Card>
-                  <Card className="p-6 border-primary/20 hover:shadow-md transition-shadow">
+                  <Card className="p-4 md:p-6 border-primary/20 hover:shadow-md transition-shadow">
                     <div className="flex gap-4">
                       <Target className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                       <div>
@@ -200,7 +200,7 @@ export function About() {
               <div>
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-1 bg-primary"></div>
-                  <h2 className="text-3xl font-serif font-bold text-secondary">
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-secondary">
                     Education & Admissions
                   </h2>
                 </div>
@@ -250,7 +250,7 @@ export function About() {
       </section>
 
       {/* Awards & Approach - Combined Section */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-8 md:py-16 bg-slate-50">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
@@ -258,12 +258,12 @@ export function About() {
               <div>
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-1 bg-primary"></div>
-                  <h2 className="text-3xl font-serif font-bold text-secondary">
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-secondary">
                     Awards & Recognitions
                   </h2>
                 </div>
                 <div className="space-y-4">
-                  <Card className="p-5 bg-white border-primary/20">
+                  <Card className="p-4 md:p-5 bg-white border-primary/20">
                     <div className="flex gap-4 items-start">
                       <Award className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                       <div>
@@ -274,7 +274,7 @@ export function About() {
                       </div>
                     </div>
                   </Card>
-                  <Card className="p-5 bg-white border-primary/20">
+                  <Card className="p-4 md:p-5 bg-white border-primary/20">
                     <div className="flex gap-4 items-start">
                       <Award className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                       <div>
@@ -285,7 +285,7 @@ export function About() {
                       </div>
                     </div>
                   </Card>
-                  <Card className="p-5 bg-white border-primary/20">
+                  <Card className="p-4 md:p-5 bg-white border-primary/20">
                     <div className="flex gap-4 items-start">
                       <Award className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                       <div>
@@ -303,7 +303,7 @@ export function About() {
               <div>
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-1 bg-primary"></div>
-                  <h2 className="text-3xl font-serif font-bold text-secondary">
+                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-secondary">
                     Client-Centered Approach
                   </h2>
                 </div>
@@ -315,7 +315,7 @@ export function About() {
                         Personalized Representation
                       </h3>
                     </div>
-                    <p className="text-gray-700 text-sm leading-relaxed">
+                    <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
                       Every client receives one-on-one attention with clear communication at every stage.
                     </p>
                   </div>
@@ -326,7 +326,7 @@ export function About() {
                         Results-Driven Strategy
                       </h3>
                     </div>
-                    <p className="text-gray-700 text-sm leading-relaxed">
+                    <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
                       Tailored legal strategies focused on efficiency and achieving the best outcomes.
                     </p>
                   </div>
@@ -344,7 +344,7 @@ export function About() {
       </section>
 
       {/* Free Consultation & Map Section */}
-      <section className="py-16 bg-white">
+      <section className="py-8 md:py-16 bg-white">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">

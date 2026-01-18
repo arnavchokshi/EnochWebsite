@@ -63,7 +63,7 @@ export function FractionalGeneralCounsel() {
       
       {/* Hero Section */}
       <section 
-        className="py-24 relative overflow-hidden"
+        className="py-16 md:py-24 relative overflow-hidden"
         style={{
           backgroundImage: `url(${lanceAsper})`,
           backgroundSize: 'cover',
@@ -86,7 +86,7 @@ export function FractionalGeneralCounsel() {
               <div className="inline-block px-4 py-2 bg-primary/20 backdrop-blur-sm rounded-full mb-6">
                 <span className="text-white font-medium">Business Law</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4 drop-shadow-lg">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-4 drop-shadow-lg">
                 What is a Fractional General Counsel?
               </h1>
               <div className="flex items-center text-white/80 mb-8">
@@ -99,29 +99,29 @@ export function FractionalGeneralCounsel() {
       </section>
 
       {/* Blog Content */}
-      <section className="py-16 bg-white">
+      <section className="py-8 md:py-12 lg:py-16 bg-white">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.2} inView>
             <div className="max-w-4xl mx-auto prose prose-lg max-w-none">
-              <div className="text-xl md:text-2xl text-gray-800 font-serif leading-relaxed mb-8">
-                <p className="text-gray-700 leading-relaxed mb-6">
+              <div className="text-sm md:text-base lg:text-lg text-gray-800 font-serif leading-relaxed mb-8">
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   Businesses today face a wide range of legal challenges, from contract negotiations to compliance issues. However, not every company can afford a full-time in-house attorney. This is where a Fractional General Counsel comes in—a cost-effective solution that provides ongoing legal support without the high price tag of a full-time hire.
                 </p>
-                <p className="text-gray-700 leading-relaxed mb-8">
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-8">
                   At The Law Office of Enoch P. Hicks, we offer Fractional General Counsel services to businesses in Georgia, ensuring they receive top-tier legal guidance on a flexible, as-needed basis.
                 </p>
               </div>
 
               {/* What is a Fractional General Counsel */}
-              <div className="mt-12 pt-8 border-t border-gray-200">
-                <h2 className="text-3xl font-serif font-bold text-gray-900 mb-6">What is a Fractional General Counsel?</h2>
-                <p className="text-gray-700 leading-relaxed mb-6">
+              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-6">What is a Fractional General Counsel?</h2>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   A Fractional General Counsel (Fractional GC) is an experienced business attorney who works with companies on a part-time or as-needed basis. Instead of hiring a full-time, salaried in-house lawyer, businesses can retain legal expertise only when they need it—saving on overhead costs while still receiving high-quality legal advice.
                 </p>
-                <p className="text-gray-700 leading-relaxed mb-6">
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   A Fractional GC is ideal for:
                 </p>
-                <ul className="list-none text-gray-700 leading-relaxed space-y-3 mb-6">
+                <ul className="list-none text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-3 mb-6">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-primary mr-3 mt-1 flex-shrink-0" />
                     <span>Small and mid-sized businesses that need regular legal guidance but can't justify a full-time hire.</span>
@@ -135,50 +135,50 @@ export function FractionalGeneralCounsel() {
                     <span>Startups that need legal protection but must remain budget-conscious</span>
                   </li>
                 </ul>
-                <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
-                  <p className="text-gray-700 leading-relaxed">
+                <div className="bg-blue-50 border-l-4 border-blue-400 p-3 md:p-4 mb-6">
+                  <p className="text-sm md:text-base text-gray-700 leading-relaxed">
                     <strong className="text-blue-600">Key Difference:</strong> A Fractional GC is more than an outside law firm—they become a trusted part of your leadership team, providing ongoing strategic legal counsel tailored to your business needs.
                   </p>
                 </div>
               </div>
 
               {/* Benefits Section */}
-              <div className="mt-12 pt-8 border-t border-gray-200">
-                <h2 className="text-3xl font-serif font-bold text-gray-900 mb-6">Benefits of Hiring a Fractional General Counsel</h2>
-                <p className="text-gray-700 leading-relaxed mb-6">
+              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-6">Benefits of Hiring a Fractional General Counsel</h2>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   A Fractional GC provides significant advantages over hiring a full-time legal team or relying solely on outside law firms.
                 </p>
                 
-                <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-4">Cost Savings Without Sacrificing Quality</h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
+                <h3 className="text-xl sm:text-2xl font-serif font-semibold text-gray-900 mb-4">Cost Savings Without Sacrificing Quality</h3>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   Hiring a full-time General Counsel can cost over $200,000 per year (salary, benefits, office space). In contrast, a Fractional GC provides high-level legal expertise at a fraction of the cost—only when you need it.
                 </p>
 
-                <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-4">Flexible Legal Support</h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
+                <h3 className="text-xl sm:text-2xl font-serif font-semibold text-gray-900 mb-4">Flexible Legal Support</h3>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   Every business has unique legal needs. With Fractional General Counsel services, you can scale up or down based on your workload. Whether you need monthly oversight or project-based legal advice, a Fractional GC adapts to your requirements.
                 </p>
 
-                <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-4">Strategic Risk Management</h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
+                <h3 className="text-xl sm:text-2xl font-serif font-semibold text-gray-900 mb-4">Strategic Risk Management</h3>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   Proactive legal guidance helps businesses prevent legal disputes before they arise. A Fractional GC ensures your contracts, policies, and compliance efforts are legally sound—reducing legal risks and protecting your company's reputation.
                 </p>
 
-                <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-6">A Trusted Business Partner</h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
+                <h3 className="text-xl sm:text-2xl font-serif font-semibold text-gray-900 mb-6">A Trusted Business Partner</h3>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   Unlike traditional law firms that provide one-off services, a Fractional GC builds a long-term relationship with your business. They understand your company's industry, goals, and challenges, allowing for tailored, business-focused legal strategies.
                 </p>
               </div>
 
               {/* Common Legal Services */}
-              <div className="mt-12 pt-8 border-t border-gray-200">
-                <h2 className="text-3xl font-serif font-bold text-gray-900 mb-6">Common Legal Services Provided by a Fractional General Counsel</h2>
-                <p className="text-gray-700 leading-relaxed mb-6">
+              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-6">Common Legal Services Provided by a Fractional General Counsel</h2>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   At The Law Office of Enoch P. Hicks, our Fractional General Counsel services cover a broad range of business legal needs.
                 </p>
 
-                <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-4">Contract Drafting & Negotiation</h3>
-                <ul className="list-none text-gray-700 leading-relaxed space-y-3 mb-6">
+                <h3 className="text-xl sm:text-2xl font-serif font-semibold text-gray-900 mb-4">Contract Drafting & Negotiation</h3>
+                <ul className="list-none text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-3 mb-6">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-primary mr-3 mt-1 flex-shrink-0" />
                     <span>Ensure contracts are legally enforceable and protect your interests.</span>
@@ -190,7 +190,7 @@ export function FractionalGeneralCounsel() {
                 </ul>
 
                 <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-4">Business Compliance & Regulatory Guidance</h3>
-                <ul className="list-none text-gray-700 leading-relaxed space-y-3 mb-6">
+                <ul className="list-none text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-3 mb-6">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-primary mr-3 mt-1 flex-shrink-0" />
                     <span>Keep your company compliant with state and federal laws.</span>
@@ -202,7 +202,7 @@ export function FractionalGeneralCounsel() {
                 </ul>
 
                 <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-4">Employment Law & HR Policies</h3>
-                <ul className="list-none text-gray-700 leading-relaxed space-y-3 mb-6">
+                <ul className="list-none text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-3 mb-6">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-primary mr-3 mt-1 flex-shrink-0" />
                     <span>Draft and review employment contracts and workplace policies.</span>
@@ -214,7 +214,7 @@ export function FractionalGeneralCounsel() {
                 </ul>
 
                 <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-4">Corporate Governance & Business Structure</h3>
-                <ul className="list-none text-gray-700 leading-relaxed space-y-3 mb-6">
+                <ul className="list-none text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-3 mb-6">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-primary mr-3 mt-1 flex-shrink-0" />
                     <span>Assist with LLC formations, corporate bylaws, and shareholder agreements.</span>
@@ -226,7 +226,7 @@ export function FractionalGeneralCounsel() {
                 </ul>
 
                 <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-4">Mergers, Acquisitions & Business Transactions</h3>
-                <ul className="list-none text-gray-700 leading-relaxed space-y-3 mb-6">
+                <ul className="list-none text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-3 mb-6">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-primary mr-3 mt-1 flex-shrink-0" />
                     <span>Provide legal oversight for buying, selling, or restructuring a business.</span>
@@ -238,7 +238,7 @@ export function FractionalGeneralCounsel() {
                 </ul>
 
                 <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-4">Intellectual Property & Trade Secrets Protection</h3>
-                <ul className="list-none text-gray-700 leading-relaxed space-y-3 mb-6">
+                <ul className="list-none text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-3 mb-6">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-primary mr-3 mt-1 flex-shrink-0" />
                     <span>Safeguard your trademarks, copyrights, patents, and proprietary business information.</span>
@@ -246,7 +246,7 @@ export function FractionalGeneralCounsel() {
                 </ul>
 
                 <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-4">Litigation Risk Assessment & Dispute Resolution</h3>
-                <ul className="list-none text-gray-700 leading-relaxed space-y-3 mb-6">
+                <ul className="list-none text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-3 mb-6">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-primary mr-3 mt-1 flex-shrink-0" />
                     <span>Identify potential legal risks before they escalate into lawsuits.</span>
@@ -259,15 +259,15 @@ export function FractionalGeneralCounsel() {
               </div>
 
               {/* Is it Right for Your Business */}
-              <div className="mt-12 pt-8 border-t border-gray-200">
-                <h2 className="text-3xl font-serif font-bold text-gray-900 mb-6">Is a Fractional General Counsel Right for Your Business?</h2>
-                <p className="text-gray-700 leading-relaxed mb-6">
+              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-6">Is a Fractional General Counsel Right for Your Business?</h2>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   If your company needs consistent legal support but not a full-time in-house attorney, a Fractional GC may be the perfect solution.
                 </p>
-                <p className="text-gray-700 leading-relaxed mb-6">
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   A Fractional General Counsel is ideal for businesses that:
                 </p>
-                <ul className="list-none text-gray-700 leading-relaxed space-y-3 mb-6">
+                <ul className="list-none text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-3 mb-6">
                   <li className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-primary mr-3 mt-1 flex-shrink-0" />
                     <span>Need ongoing legal oversight but want to avoid high costs.</span>
@@ -285,19 +285,19 @@ export function FractionalGeneralCounsel() {
                     <span>Want to proactively manage risk rather than wait for legal issues to arise.</span>
                   </li>
                 </ul>
-                <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
-                  <p className="text-gray-700 leading-relaxed">
+                <div className="bg-blue-50 border-l-4 border-blue-400 p-3 md:p-4 mb-6">
+                  <p className="text-sm md:text-base text-gray-700 leading-relaxed">
                     <strong className="text-blue-600">💡</strong> Not sure if your business needs a Fractional GC? A free consultation can help determine whether this service is right for you.
                   </p>
                 </div>
               </div>
 
               {/* FAQs Section */}
-              <div className="mt-12 pt-8 border-t border-gray-200">
-                <h2 className="text-3xl font-serif font-bold text-gray-900 mb-6">FAQs About Fractional General Counsel Services</h2>
+              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-6">FAQs About Fractional General Counsel Services</h2>
                 <div className="space-y-6 mb-6">
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">How is a Fractional General Counsel different from hiring a law firm?</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">How is a Fractional General Counsel different from hiring a law firm?</h3>
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-2">Can I customize my Fractional General Counsel services?</h3>
@@ -315,13 +315,13 @@ export function FractionalGeneralCounsel() {
               </div>
 
               {/* Schedule Consultation */}
-              <div className="mt-12 pt-8 border-t border-gray-200 bg-gradient-to-r from-primary/5 to-secondary/5 p-8 rounded-lg">
-                <h2 className="text-3xl font-serif font-bold text-gray-900 mb-4">Schedule Your Consultation Today</h2>
-                <h3 className="text-2xl font-serif font-semibold text-gray-800 mb-6">Gain Reliable Legal Support Without the High Costs</h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
+              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200 bg-gradient-to-r from-primary/5 to-secondary/5 p-6 md:p-8 rounded-lg">
+                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-4">Schedule Your Consultation Today</h2>
+                <h3 className="text-xl sm:text-2xl font-serif font-semibold text-gray-800 mb-6">Gain Reliable Legal Support Without the High Costs</h3>
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   A Fractional General Counsel provides businesses with affordable, strategic legal guidance—without the financial burden of hiring a full-time attorney.
                 </p>
-                <p className="text-gray-700 leading-relaxed mb-6">
+                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   At The Law Office of Enoch P. Hicks, we help businesses in Georgia navigate legal complexities with tailored, cost-effective solutions.
                 </p>
                 <div className="bg-white p-6 rounded-lg shadow-md mb-6">
@@ -333,7 +333,7 @@ export function FractionalGeneralCounsel() {
               </div>
 
               {/* Navigation */}
-              <div className="mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
+              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
                 <Link to="/blog/car-accident-claim">
                   <Button variant="outline" className="inline-flex items-center">
                     <ArrowLeft className="w-4 h-4 mr-2" />
