@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
-import { Save, Plus, Trash2, GripVertical, Briefcase } from "lucide-react";
+import { Save, Plus, Trash2, Briefcase } from "lucide-react";
 import type { PracticeAreasContent, PracticeArea } from "@/lib/api";
 
 interface PracticeAreasEditorProps {

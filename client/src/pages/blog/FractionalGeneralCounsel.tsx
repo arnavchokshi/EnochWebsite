@@ -4,7 +4,7 @@ import { Footer } from "@/components/sections/Footer";
 import { Contact } from "@/components/sections/Contact";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Calendar, CheckCircle, AlertCircle } from "lucide-react";
+import { ArrowLeft, Calendar, CheckCircle } from "lucide-react";
 import { fetchAllContent, type AllContent } from "@/lib/api";
 import { Link } from "react-router-dom";
 import lanceAsper from "@/assets/lance-asper-9fxD3UW_C1I-unsplash.jpg";

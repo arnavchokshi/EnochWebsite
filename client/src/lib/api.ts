@@ -1,5 +1,30 @@
 import { supabase } from './supabase';
 
+// Database row types
+interface BlogRow {
+  id: string;
+  section_title: string;
+  section_description: string;
+}
+
+interface PracticeAreasRow {
+  id: string;
+  section_title: string;
+  section_description: string;
+}
+
+interface HowItWorksRow {
+  id: string;
+  section_title: string;
+  section_description: string;
+}
+
+interface TeamRow {
+  id: string;
+  section_title: string;
+  section_description: string;
+}
+
 // Types (kept the same for component compatibility)
 export interface HeroContent {
   heading: string;
@@ -186,12 +211,12 @@ export async function fetchAllContent(): Promise<AllContent> {
     // Fetch all single-row tables
     const [heroRow, blogRow, quoteRow, contactRow, practiceAreasRow, howItWorksRow, teamRow, siteSettingsRow] = await Promise.all([
       getSingleRow('hero'),
-      getSingleRow('blog'),
+      getSingleRow<BlogRow>('blog'),
       getSingleRow('quote'),
       getSingleRow('contact'),
-      getSingleRow('practice_areas'),
-      getSingleRow('how_it_works'),
-      getSingleRow('team'),
+      getSingleRow<PracticeAreasRow>('practice_areas'),
+      getSingleRow<HowItWorksRow>('how_it_works'),
+      getSingleRow<TeamRow>('team'),
       getSingleRow('site_settings'),
     ]);
 
@@ -226,8 +251,8 @@ export async function fetchAllContent(): Promise<AllContent> {
     };
 
     const blog: BlogContent = {
-      sectionTitle: blogRow?.section_title || '',
-      sectionDescription: blogRow?.section_description || '',
+      sectionTitle: (blogRow as BlogRow | null)?.section_title || '',
+      sectionDescription: (blogRow as BlogRow | null)?.section_description || '',
       posts: (blogPosts || []).map((post: any) => ({
         id: post.id,
         title: post.title || '',
@@ -240,8 +265,8 @@ export async function fetchAllContent(): Promise<AllContent> {
     };
 
     const practiceAreas: PracticeAreasContent = {
-      sectionTitle: practiceAreasRow?.section_title || '',
-      sectionDescription: practiceAreasRow?.section_description || '',
+      sectionTitle: (practiceAreasRow as PracticeAreasRow | null)?.section_title || '',
+      sectionDescription: (practiceAreasRow as PracticeAreasRow | null)?.section_description || '',
       areas: (practiceAreaItems || []).map((item: any) => ({
         id: item.id,
         title: item.title || '',
@@ -252,8 +277,8 @@ export async function fetchAllContent(): Promise<AllContent> {
     };
 
     const howItWorks: HowItWorksContent = {
-      sectionTitle: howItWorksRow?.section_title || '',
-      sectionDescription: howItWorksRow?.section_description || '',
+      sectionTitle: (howItWorksRow as HowItWorksRow | null)?.section_title || '',
+      sectionDescription: (howItWorksRow as HowItWorksRow | null)?.section_description || '',
       steps: (howItWorksSteps || []).map((step: any) => ({
         id: step.id,
         title: step.title || '',
@@ -263,8 +288,8 @@ export async function fetchAllContent(): Promise<AllContent> {
     };
 
     const team: TeamContent = {
-      sectionTitle: teamRow?.section_title || '',
-      sectionDescription: teamRow?.section_description || '',
+      sectionTitle: (teamRow as TeamRow | null)?.section_title || '',
+      sectionDescription: (teamRow as TeamRow | null)?.section_description || '',
       members: (teamMembers || []).map((member: any) => ({
         id: member.id,
         name: member.name || '',
@@ -320,7 +345,7 @@ export async function fetchSection<T>(section: string): Promise<T> {
         return (row ? transformHeroRow(row) : null) as T;
       }
       case 'blog': {
-        const blogRow = await getSingleRow('blog');
+        const blogRow = await getSingleRow<BlogRow>('blog');
         const { data: blogPosts } = await supabase
           .from('blog_posts')
           .select('*')
@@ -341,7 +366,7 @@ export async function fetchSection<T>(section: string): Promise<T> {
         } as T;
       }
       case 'practiceAreas': {
-        const practiceAreasRow = await getSingleRow('practice_areas');
+        const practiceAreasRow = await getSingleRow<PracticeAreasRow>('practice_areas');
         const { data: items } = await supabase
           .from('practice_area_items')
           .select('*')
@@ -360,7 +385,7 @@ export async function fetchSection<T>(section: string): Promise<T> {
         } as T;
       }
       case 'howItWorks': {
-        const howItWorksRow = await getSingleRow('how_it_works');
+        const howItWorksRow = await getSingleRow<HowItWorksRow>('how_it_works');
         const { data: steps } = await supabase
           .from('how_it_works_steps')
           .select('*')
@@ -378,7 +403,7 @@ export async function fetchSection<T>(section: string): Promise<T> {
         } as T;
       }
       case 'team': {
-        const teamRow = await getSingleRow('team');
+        const teamRow = await getSingleRow<TeamRow>('team');
         const { data: members } = await supabase
           .from('team_members')
           .select('*')
@@ -438,7 +463,7 @@ export async function updateSection(section: string, data: unknown, _token?: str
           const { error } = await supabase
             .from('hero')
             .update(updateData)
-            .eq('id', existing.id);
+            .eq('id', (existing as { id: string }).id);
           if (error) throw error;
         } else {
           const { error } = await supabase.from('hero').insert(updateData);
@@ -457,7 +482,7 @@ export async function updateSection(section: string, data: unknown, _token?: str
         };
 
         if (existing) {
-          await supabase.from('blog').update(blogMetadata).eq('id', existing.id);
+          await supabase.from('blog').update(blogMetadata).eq('id', (existing as BlogRow).id);
         } else {
           const { data: newBlog } = await supabase.from('blog').insert(blogMetadata).select().single();
           const blogId = newBlog?.id;
@@ -481,17 +506,17 @@ export async function updateSection(section: string, data: unknown, _token?: str
         }
 
         // Get blog_id for posts
-        const blogRow = await getSingleRow('blog');
+        const blogRow = await getSingleRow<BlogRow>('blog');
         if (!blogRow) throw new Error('Blog not found');
 
         // Delete existing posts
-        await supabase.from('blog_posts').delete().eq('blog_id', (blogRow as any).id);
+        await supabase.from('blog_posts').delete().eq('blog_id', blogRow.id);
 
         // Insert new posts
         for (let i = 0; i < blogData.posts.length; i++) {
           const post = blogData.posts[i];
           await supabase.from('blog_posts').insert({
-            blog_id: (blogRow as any).id,
+            blog_id: blogRow.id,
             title: post.title,
             category: post.category,
             excerpt: post.excerpt,
@@ -686,7 +711,7 @@ export async function updateSection(section: string, data: unknown, _token?: str
 
 // Note: Image upload would need Supabase Storage integration
 // For now, this is a placeholder - images should be uploaded via Supabase Storage
-export async function uploadImage(file: File, _token?: string): Promise<{ url: string }> {
+export async function uploadImage(_file: File, _token?: string): Promise<{ url: string }> {
   // TODO: Implement Supabase Storage upload
   throw new Error('Image upload not yet implemented with Supabase Storage');
 }

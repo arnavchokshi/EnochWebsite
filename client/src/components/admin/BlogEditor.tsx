@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { Save, Plus, Trash2, Copy, Upload, Image as ImageIcon, Search, FileText } from "lucide-react";
 import type { BlogContent, BlogPost } from "@/lib/api";

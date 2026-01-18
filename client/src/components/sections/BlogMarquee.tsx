@@ -5,7 +5,6 @@ import type { BlogContent } from "@/lib/api";
 import tierraMallorca from "@/assets/tierra-mallorca-NpTbVOkkom8-unsplash.jpg";
 import scottGraham from "@/assets/scott-graham-OQMZwNd3ThU-unsplash.jpg";
 import lanceAsper from "@/assets/lance-asper-9fxD3UW_C1I-unsplash.jpg";
-import harlieRaethel from "@/assets/harlie-raethel-ouyjDk-KdfY-unsplash.jpg";
 
 interface BlogMarqueeProps {
   content: BlogContent;

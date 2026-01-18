@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { fetchAllContent, updateSection, uploadImage, type AllContent } from "@/lib/api";
+import { fetchAllContent, updateSection, type AllContent } from "@/lib/api";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { 
@@ -17,8 +17,7 @@ import {
   Mail, 
   Settings,
   CheckCircle2,
-  AlertCircle,
-  Save
+  AlertCircle
 } from "lucide-react";
 import { HeroEditor } from "@/components/admin/HeroEditor";
 import { PracticeAreasEditor } from "@/components/admin/PracticeAreasEditor";
@@ -85,7 +84,7 @@ export function Admin() {
     }
   };
 
-  const handleImageUpload = async (file: File): Promise<string> => {
+  const handleImageUpload = async (_file: File): Promise<string> => {
     // Image upload via Supabase Storage would need to be implemented
     // For now, users can use image URLs directly
     throw new Error("Image upload not yet implemented. Please use image URLs directly.");
