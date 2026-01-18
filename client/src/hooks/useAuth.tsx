@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
-import { login as apiLogin, verifyToken } from "@/lib/api";
+import { supabase } from "@/lib/supabase";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 interface User {
   id: string;
@@ -24,45 +25,67 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("admin_token");
-    const storedUser = localStorage.getItem("admin_user");
-
-    if (storedToken && storedUser) {
-      verifyToken(storedToken)
-        .then((valid) => {
-          if (valid) {
-            setToken(storedToken);
-            setUser(JSON.parse(storedUser));
-          } else {
-            localStorage.removeItem("admin_token");
-            localStorage.removeItem("admin_user");
-          }
-        })
-        .catch(() => {
-          localStorage.removeItem("admin_token");
-          localStorage.removeItem("admin_user");
-        })
-        .finally(() => {
-          setIsLoading(false);
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        setToken(session.access_token);
+        setUser({
+          id: session.user.id,
+          email: session.user.email || "",
+          name: session.user.user_metadata?.name || session.user.email || "",
+          role: "admin",
         });
-    } else {
+      }
       setIsLoading(false);
-    }
+    });
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        setToken(session.access_token);
+        setUser({
+          id: session.user.id,
+          email: session.user.email || "",
+          name: session.user.user_metadata?.name || session.user.email || "",
+          role: "admin",
+        });
+      } else {
+        setToken(null);
+        setUser(null);
+      }
+      setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await apiLogin(email, password);
-    setToken(response.token);
-    setUser(response.user);
-    localStorage.setItem("admin_token", response.token);
-    localStorage.setItem("admin_user", JSON.stringify(response.user));
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      throw new Error(error.message || "Login failed");
+    }
+
+    if (data.session) {
+      setToken(data.session.access_token);
+      setUser({
+        id: data.user.id,
+        email: data.user.email || "",
+        name: data.user.user_metadata?.name || data.user.email || "",
+        role: "admin",
+      });
+    }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await supabase.auth.signOut();
     setToken(null);
     setUser(null);
-    localStorage.removeItem("admin_token");
-    localStorage.removeItem("admin_user");
   };
 
   return (

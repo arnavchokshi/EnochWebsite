@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Save, Plus, Trash2 } from "lucide-react";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
+import { Save, Plus, Trash2, Copy, Upload, Image as ImageIcon, Search, FileText } from "lucide-react";
 import type { BlogContent, BlogPost } from "@/lib/api";
 
 interface BlogEditorProps {
@@ -11,10 +12,14 @@ interface BlogEditorProps {
   onSave: (data: BlogContent) => void;
   onChange: () => void;
   saving: boolean;
+  onImageUpload?: (file: File) => Promise<string>;
 }
 
-export function BlogEditor({ content, onSave, onChange, saving }: BlogEditorProps) {
+export function BlogEditor({ content, onSave, onChange, saving, onImageUpload }: BlogEditorProps) {
   const [formData, setFormData] = useState<BlogContent>(content);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [uploadingImage, setUploadingImage] = useState<string | null>(null);
+  const fileInputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
 
   useEffect(() => {
     setFormData(content);
@@ -53,12 +58,52 @@ export function BlogEditor({ content, onSave, onChange, saving }: BlogEditorProp
   };
 
   const removePost = (id: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      posts: prev.posts.filter((post) => post.id !== id),
-    }));
-    onChange();
+    if (confirm("Are you sure you want to delete this blog post?")) {
+      setFormData((prev) => ({
+        ...prev,
+        posts: prev.posts.filter((post) => post.id !== id),
+      }));
+      onChange();
+    }
   };
+
+  const duplicatePost = (id: string) => {
+    const post = formData.posts.find((p) => p.id === id);
+    if (post) {
+      const newPost: BlogPost = {
+        ...post,
+        id: Date.now().toString(),
+        title: `${post.title} (Copy)`,
+        date: new Date().toISOString().split("T")[0],
+        link: `${post.link}-copy`,
+      };
+      setFormData((prev) => ({
+        ...prev,
+        posts: [...prev.posts, newPost],
+      }));
+      onChange();
+    }
+  };
+
+  const handleImageUpload = async (id: string, file: File) => {
+    if (!onImageUpload) return;
+    setUploadingImage(id);
+    try {
+      const url = await onImageUpload(file);
+      handlePostChange(id, "image", url);
+    } catch (error) {
+      console.error("Failed to upload image:", error);
+      alert("Failed to upload image. Please try again.");
+    } finally {
+      setUploadingImage(null);
+    }
+  };
+
+  const filteredPosts = formData.posts.filter((post) =>
+    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,7 +126,10 @@ export function BlogEditor({ content, onSave, onChange, saving }: BlogEditorProp
             id="sectionTitle"
             value={formData.sectionTitle}
             onChange={(e) => handleTitleChange("sectionTitle", e.target.value)}
+            placeholder="Latest News & Insights"
+            className="font-medium"
           />
+          <p className="text-xs text-gray-500">Main heading for the blog section</p>
         </div>
         <div className="space-y-2">
           <Label htmlFor="sectionDescription">Section Description</Label>
@@ -89,97 +137,214 @@ export function BlogEditor({ content, onSave, onChange, saving }: BlogEditorProp
             id="sectionDescription"
             value={formData.sectionDescription}
             onChange={(e) => handleTitleChange("sectionDescription", e.target.value)}
+            placeholder="Stay informed with our latest articles"
+            className="font-medium"
           />
+          <p className="text-xs text-gray-500">Subtitle or brief description</p>
         </div>
       </div>
 
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-gray-900">Blog Posts</h3>
-          <Button type="button" variant="outline" size="sm" onClick={addPost}>
-            <Plus className="w-4 h-4 mr-2" />
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex-1">
+            <h3 className="font-semibold text-gray-900 mb-3">Blog Posts ({formData.posts.length})</h3>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Input
+                type="text"
+                placeholder="Search posts by title, category, or content..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+          </div>
+          <Button type="button" variant="default" size="sm" onClick={addPost} className="gap-2">
+            <Plus className="w-4 h-4" />
             Add Post
           </Button>
         </div>
 
-        {formData.posts.map((post) => (
-          <div
-            key={post.id}
-            className="border rounded-lg p-4 space-y-4 bg-gray-50"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-medium text-gray-700 truncate max-w-xs">
-                {post.title}
-              </span>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() => removePost(post.id)}
-                className="text-red-500 hover:text-red-700 hover:bg-red-50"
-              >
-                <Trash2 className="w-4 h-4" />
-              </Button>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label>Title</Label>
-                <Input
-                  value={post.title}
-                  onChange={(e) => handlePostChange(post.id, "title", e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Category</Label>
-                <select
-                  value={post.category}
-                  onChange={(e) => handlePostChange(post.id, "category", e.target.value)}
-                  className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm"
-                >
-                  {categoryOptions.map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Excerpt</Label>
-              <Textarea
-                value={post.excerpt}
-                onChange={(e) => handlePostChange(post.id, "excerpt", e.target.value)}
-                rows={2}
-              />
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label>Date</Label>
-                <Input
-                  type="date"
-                  value={post.date}
-                  onChange={(e) => handlePostChange(post.id, "date", e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Link</Label>
-                <Input
-                  value={post.link}
-                  onChange={(e) => handlePostChange(post.id, "link", e.target.value)}
-                />
-              </div>
-            </div>
+        {filteredPosts.length === 0 ? (
+          <div className="text-center py-12 border-2 border-dashed rounded-lg bg-gray-50">
+            <FileText className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+            <p className="text-gray-500">
+              {searchQuery ? "No posts match your search." : "No blog posts yet. Add your first post!"}
+            </p>
           </div>
-        ))}
+        ) : (
+          filteredPosts.map((post) => (
+            <div
+              key={post.id}
+              className="border-2 rounded-xl p-6 space-y-5 bg-white shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-center justify-between pb-3 border-b">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <FileText className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <span className="font-semibold text-gray-900 block">
+                      {post.title || "Untitled Post"}
+                    </span>
+                    <span className="text-xs text-gray-500">{post.category} • {post.date}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => duplicatePost(post.id)}
+                    className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                    title="Duplicate post"
+                  >
+                    <Copy className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removePost(post.id)}
+                    className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                    title="Delete post"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="font-medium">Post Title</Label>
+                  <Input
+                    value={post.title}
+                    onChange={(e) => handlePostChange(post.id, "title", e.target.value)}
+                    placeholder="Enter post title..."
+                    className="font-medium"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="font-medium">Category</Label>
+                  <select
+                    value={post.category}
+                    onChange={(e) => handlePostChange(post.id, "category", e.target.value)}
+                    className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    {categoryOptions.map((cat) => (
+                      <option key={cat} value={cat}>
+                        {cat}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="font-medium">Excerpt / Summary</Label>
+                <RichTextEditor
+                  value={post.excerpt}
+                  onChange={(value) => handlePostChange(post.id, "excerpt", value)}
+                  placeholder="Write a brief summary or excerpt for this post..."
+                  rows={3}
+                />
+                <p className="text-xs text-gray-500">This appears in blog listings and previews</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="font-medium">Publish Date</Label>
+                  <Input
+                    type="date"
+                    value={post.date}
+                    onChange={(e) => handlePostChange(post.id, "date", e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="font-medium">Post Link/URL</Label>
+                  <Input
+                    value={post.link}
+                    onChange={(e) => handlePostChange(post.id, "link", e.target.value)}
+                    placeholder="/blog/my-post"
+                  />
+                  <p className="text-xs text-gray-500">URL path for this post</p>
+                </div>
+              </div>
+
+              {onImageUpload && (
+                <div className="space-y-2">
+                  <Label className="font-medium">Featured Image</Label>
+                  <div className="flex items-center gap-4">
+                    {post.image ? (
+                      <div className="relative w-32 h-32 rounded-lg overflow-hidden border-2 border-gray-200">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-32 h-32 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
+                        <ImageIcon className="w-8 h-8 text-gray-400" />
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        ref={(el) => { fileInputRefs.current[post.id] = el; }}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) handleImageUpload(post.id, file);
+                        }}
+                        className="hidden"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => fileInputRefs.current[post.id]?.click()}
+                        disabled={uploadingImage === post.id}
+                        className="gap-2"
+                      >
+                        {uploadingImage === post.id ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                            Uploading...
+                          </>
+                        ) : (
+                          <>
+                            <Upload className="w-4 h-4" />
+                            {post.image ? "Change Image" : "Upload Image"}
+                          </>
+                        )}
+                      </Button>
+                      {post.image && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handlePostChange(post.id, "image", "")}
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50 ml-2"
+                        >
+                          Remove
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))
+        )}
       </div>
 
-      <Button type="submit" disabled={saving}>
-        <Save className="w-4 h-4 mr-2" />
-        {saving ? "Saving..." : "Save Changes"}
-      </Button>
+      <div className="pt-4 border-t">
+        <Button type="submit" disabled={saving} size="lg" className="gap-2">
+          <Save className="w-5 h-5" />
+          {saving ? "Saving Changes..." : "Save All Changes"}
+        </Button>
+      </div>
     </form>
   );
 }

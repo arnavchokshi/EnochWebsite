@@ -4,7 +4,22 @@ import { useAuth } from "@/hooks/useAuth";
 import { fetchAllContent, updateSection, uploadImage, type AllContent } from "@/lib/api";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { LogOut, Home, Eye } from "lucide-react";
+import { 
+  LogOut, 
+  Home, 
+  Eye, 
+  Sparkles, 
+  Briefcase, 
+  Workflow, 
+  FileText, 
+  Quote, 
+  Users, 
+  Mail, 
+  Settings,
+  CheckCircle2,
+  AlertCircle,
+  Save
+} from "lucide-react";
 import { HeroEditor } from "@/components/admin/HeroEditor";
 import { PracticeAreasEditor } from "@/components/admin/PracticeAreasEditor";
 import { HowItWorksEditor } from "@/components/admin/HowItWorksEditor";
@@ -71,14 +86,41 @@ export function Admin() {
   };
 
   const handleImageUpload = async (file: File): Promise<string> => {
-    if (!token) throw new Error("Not authenticated");
-    const result = await uploadImage(file, token);
-    return `http://localhost:3001${result.url}`;
+    // Image upload via Supabase Storage would need to be implemented
+    // For now, users can use image URLs directly
+    throw new Error("Image upload not yet implemented. Please use image URLs directly.");
   };
 
   const handleContentChange = () => {
     setHasChanges(true);
   };
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl/Cmd + S to save (if there are changes)
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        if (hasChanges && content) {
+          // Find the active tab and trigger save
+          const activeTab = document.querySelector('[role="tab"][data-state="active"]');
+          if (activeTab) {
+            const tabValue = activeTab.getAttribute('data-value');
+            if (tabValue) {
+              // Trigger save for the active section
+              const form = document.querySelector(`[data-section="${tabValue}"] form`);
+              if (form) {
+                (form as HTMLFormElement).requestSubmit();
+              }
+            }
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [hasChanges, content]);
 
   if (authLoading || loading) {
     return (
@@ -102,49 +144,56 @@ export function Admin() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-50">
+      <header className="bg-white border-b sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">EPH</span>
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-md">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="font-bold text-gray-900">Admin Dashboard</h1>
-              <p className="text-sm text-gray-500">Welcome, {user?.name}</p>
+              <h1 className="font-bold text-xl text-gray-900">Admin Dashboard</h1>
+              <p className="text-sm text-gray-500">Welcome back, {user?.name}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
             {saveMessage && (
-              <span
-                className={`text-sm px-3 py-1 rounded-full ${
+              <div
+                className={`flex items-center gap-2 text-sm px-4 py-2 rounded-lg font-medium transition-all ${
                   saveMessage.type === "success"
-                    ? "bg-green-100 text-green-700"
-                    : "bg-red-100 text-red-700"
+                    ? "bg-green-50 text-green-700 border border-green-200"
+                    : "bg-red-50 text-red-700 border border-red-200"
                 }`}
               >
+                {saveMessage.type === "success" ? (
+                  <CheckCircle2 className="w-4 h-4" />
+                ) : (
+                  <AlertCircle className="w-4 h-4" />
+                )}
                 {saveMessage.text}
-              </span>
+              </div>
             )}
-            {hasChanges && (
-              <span className="text-sm text-amber-600 bg-amber-50 px-3 py-1 rounded-full">
+            {hasChanges && !saveMessage && (
+              <div className="flex items-center gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 px-4 py-2 rounded-lg font-medium">
+                <AlertCircle className="w-4 h-4" />
                 Unsaved changes
-              </span>
+                <span className="text-xs text-amber-600/70 ml-2">(Ctrl+S to save)</span>
+              </div>
             )}
-            <a href="/" target="_blank">
-              <Button variant="outline" size="sm">
-                <Eye className="w-4 h-4 mr-2" />
+            <a href="/" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="sm" className="gap-2">
+                <Eye className="w-4 h-4" />
                 View Site
               </Button>
             </a>
             <a href="/">
-              <Button variant="outline" size="sm">
-                <Home className="w-4 h-4 mr-2" />
+              <Button variant="outline" size="sm" className="gap-2">
+                <Home className="w-4 h-4" />
                 Home
               </Button>
             </a>
-            <Button variant="outline" size="sm" onClick={logout}>
-              <LogOut className="w-4 h-4 mr-2" />
+            <Button variant="outline" size="sm" onClick={logout} className="gap-2">
+              <LogOut className="w-4 h-4" />
               Logout
             </Button>
           </div>
@@ -154,128 +203,169 @@ export function Admin() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
         <Tabs defaultValue="hero" className="space-y-6">
-          <TabsList className="bg-white border p-1 flex-wrap h-auto">
-            <TabsTrigger value="hero">Hero</TabsTrigger>
-            <TabsTrigger value="practiceAreas">Practice Areas</TabsTrigger>
-            <TabsTrigger value="howItWorks">How It Works</TabsTrigger>
-            <TabsTrigger value="blog">Blog</TabsTrigger>
-            <TabsTrigger value="quote">Quote</TabsTrigger>
-            <TabsTrigger value="team">Team</TabsTrigger>
-            <TabsTrigger value="contact">Contact</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
+          <TabsList className="bg-white border-2 p-1.5 flex-wrap h-auto gap-1 shadow-sm">
+            <TabsTrigger value="hero" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+              <Sparkles className="w-4 h-4" />
+              Hero
+            </TabsTrigger>
+            <TabsTrigger value="practiceAreas" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+              <Briefcase className="w-4 h-4" />
+              Practice Areas
+            </TabsTrigger>
+            <TabsTrigger value="howItWorks" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+              <Workflow className="w-4 h-4" />
+              How It Works
+            </TabsTrigger>
+            <TabsTrigger value="blog" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+              <FileText className="w-4 h-4" />
+              Blog
+            </TabsTrigger>
+            <TabsTrigger value="quote" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+              <Quote className="w-4 h-4" />
+              Quote
+            </TabsTrigger>
+            <TabsTrigger value="team" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+              <Users className="w-4 h-4" />
+              Team
+            </TabsTrigger>
+            <TabsTrigger value="contact" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+              <Mail className="w-4 h-4" />
+              Contact
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-white">
+              <Settings className="w-4 h-4" />
+              Settings
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="hero">
-            <EditorCard
-              title="Hero Section"
-              description="Edit the main banner that visitors see first"
-            >
-              <HeroEditor
-                content={content.hero}
-                onSave={(data) => handleSave("hero", data)}
-                onChange={handleContentChange}
-                saving={saving}
-              />
-            </EditorCard>
+            <div data-section="hero">
+              <EditorCard
+                title="Hero Section"
+                description="Edit the main banner that visitors see first"
+              >
+                <HeroEditor
+                  content={content.hero}
+                  onSave={(data) => handleSave("hero", data)}
+                  onChange={handleContentChange}
+                  saving={saving}
+                />
+              </EditorCard>
+            </div>
           </TabsContent>
 
           <TabsContent value="practiceAreas">
-            <EditorCard
-              title="Practice Areas"
-              description="Manage your legal practice areas and services"
-            >
-              <PracticeAreasEditor
-                content={content.practiceAreas}
-                onSave={(data) => handleSave("practiceAreas", data)}
-                onChange={handleContentChange}
-                saving={saving}
-              />
-            </EditorCard>
+            <div data-section="practiceAreas">
+              <EditorCard
+                title="Practice Areas"
+                description="Manage your legal practice areas and services"
+              >
+                <PracticeAreasEditor
+                  content={content.practiceAreas}
+                  onSave={(data) => handleSave("practiceAreas", data)}
+                  onChange={handleContentChange}
+                  saving={saving}
+                />
+              </EditorCard>
+            </div>
           </TabsContent>
 
           <TabsContent value="howItWorks">
-            <EditorCard
-              title="How It Works"
-              description="Edit the process steps shown to clients"
-            >
-              <HowItWorksEditor
-                content={content.howItWorks}
-                onSave={(data) => handleSave("howItWorks", data)}
-                onChange={handleContentChange}
-                saving={saving}
-              />
-            </EditorCard>
+            <div data-section="howItWorks">
+              <EditorCard
+                title="How It Works"
+                description="Edit the process steps shown to clients"
+              >
+                <HowItWorksEditor
+                  content={content.howItWorks}
+                  onSave={(data) => handleSave("howItWorks", data)}
+                  onChange={handleContentChange}
+                  saving={saving}
+                />
+              </EditorCard>
+            </div>
           </TabsContent>
 
           <TabsContent value="blog">
-            <EditorCard
-              title="Blog Posts"
-              description="Manage your blog articles and case studies"
-            >
-              <BlogEditor
-                content={content.blog}
-                onSave={(data) => handleSave("blog", data)}
-                onChange={handleContentChange}
-                saving={saving}
-              />
-            </EditorCard>
+            <div data-section="blog">
+              <EditorCard
+                title="Blog Posts"
+                description="Manage your blog articles and case studies"
+              >
+                <BlogEditor
+                  content={content.blog}
+                  onSave={(data) => handleSave("blog", data)}
+                  onChange={handleContentChange}
+                  onImageUpload={handleImageUpload}
+                  saving={saving}
+                />
+              </EditorCard>
+            </div>
           </TabsContent>
 
           <TabsContent value="quote">
-            <EditorCard
-              title="Attorney Quote"
-              description="Edit the featured quote displayed on the website"
-            >
-              <QuoteEditor
-                content={content.quote}
-                onSave={(data) => handleSave("quote", data)}
-                onChange={handleContentChange}
-                saving={saving}
-              />
-            </EditorCard>
+            <div data-section="quote">
+              <EditorCard
+                title="Attorney Quote"
+                description="Edit the featured quote displayed on the website"
+              >
+                <QuoteEditor
+                  content={content.quote}
+                  onSave={(data) => handleSave("quote", data)}
+                  onChange={handleContentChange}
+                  saving={saving}
+                />
+              </EditorCard>
+            </div>
           </TabsContent>
 
           <TabsContent value="team">
-            <EditorCard
-              title="Team Members"
-              description="Manage your team profiles"
-            >
-              <TeamEditor
-                content={content.team}
-                onSave={(data) => handleSave("team", data)}
-                onChange={handleContentChange}
-                onImageUpload={handleImageUpload}
-                saving={saving}
-              />
-            </EditorCard>
+            <div data-section="team">
+              <EditorCard
+                title="Team Members"
+                description="Manage your team profiles"
+              >
+                <TeamEditor
+                  content={content.team}
+                  onSave={(data) => handleSave("team", data)}
+                  onChange={handleContentChange}
+                  onImageUpload={handleImageUpload}
+                  saving={saving}
+                />
+              </EditorCard>
+            </div>
           </TabsContent>
 
           <TabsContent value="contact">
-            <EditorCard
-              title="Contact Information"
-              description="Update your contact details and office hours"
-            >
-              <ContactEditor
-                content={content.contact}
-                onSave={(data) => handleSave("contact", data)}
-                onChange={handleContentChange}
-                saving={saving}
-              />
-            </EditorCard>
+            <div data-section="contact">
+              <EditorCard
+                title="Contact Information"
+                description="Update your contact details and office hours"
+              >
+                <ContactEditor
+                  content={content.contact}
+                  onSave={(data) => handleSave("contact", data)}
+                  onChange={handleContentChange}
+                  saving={saving}
+                />
+              </EditorCard>
+            </div>
           </TabsContent>
 
           <TabsContent value="settings">
-            <EditorCard
-              title="Site Settings"
-              description="General website configuration"
-            >
-              <SettingsEditor
-                content={content.siteSettings}
-                onSave={(data) => handleSave("siteSettings", data)}
-                onChange={handleContentChange}
-                saving={saving}
-              />
-            </EditorCard>
+            <div data-section="settings">
+              <EditorCard
+                title="Site Settings"
+                description="General website configuration"
+              >
+                <SettingsEditor
+                  content={content.siteSettings}
+                  onSave={(data) => handleSave("siteSettings", data)}
+                  onChange={handleContentChange}
+                  saving={saving}
+                />
+              </EditorCard>
+            </div>
           </TabsContent>
         </Tabs>
       </main>
@@ -293,12 +383,12 @@ function EditorCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-white rounded-xl border shadow-sm">
-      <div className="p-6 border-b">
-        <h2 className="text-xl font-bold text-gray-900">{title}</h2>
-        <p className="text-gray-500 text-sm mt-1">{description}</p>
+    <div className="bg-white rounded-xl border-2 shadow-lg overflow-hidden">
+      <div className="p-6 border-b bg-gradient-to-r from-gray-50 to-white">
+        <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
+        <p className="text-gray-600 text-sm mt-2">{description}</p>
       </div>
-      <div className="p-6">{children}</div>
+      <div className="p-6 bg-gray-50/50">{children}</div>
     </div>
   );
 }

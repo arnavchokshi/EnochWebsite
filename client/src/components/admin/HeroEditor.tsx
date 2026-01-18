@@ -34,80 +34,118 @@ export function HeroEditor({ content, onSave, onChange, saving }: HeroEditorProp
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <Label htmlFor="heading">Main Heading</Label>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="heading" className="font-medium">Main Heading</Label>
+            <span className="text-xs text-gray-500">{formData.heading.length} characters</span>
+          </div>
           <Input
             id="heading"
             value={formData.heading}
             onChange={(e) => handleChange("heading", e.target.value)}
             placeholder="Schedule a Free Consultation"
+            className="text-lg font-semibold"
           />
-          <p className="text-xs text-muted-foreground">The big title visitors see first</p>
+          <p className="text-xs text-gray-500">The big title visitors see first</p>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="subheading">Subheading</Label>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="subheading" className="font-medium">Subheading</Label>
+            <span className="text-xs text-gray-500">{formData.subheading.length} characters</span>
+          </div>
           <Input
             id="subheading"
             value={formData.subheading}
             onChange={(e) => handleChange("subheading", e.target.value)}
             placeholder="Attorney Enoch P. Hicks"
+            className="font-medium"
           />
-          <p className="text-xs text-muted-foreground">Appears above the main heading</p>
+          <p className="text-xs text-gray-500">Appears above the main heading</p>
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="tagline">Tagline</Label>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="tagline" className="font-medium">Tagline</Label>
+          <span className="text-xs text-gray-500">{formData.tagline.length} characters</span>
+        </div>
         <Textarea
           id="tagline"
           value={formData.tagline}
           onChange={(e) => handleChange("tagline", e.target.value)}
           placeholder="Simplifying the complexities of the legal system."
-          rows={2}
+          rows={3}
+          className="resize-none"
         />
-        <p className="text-xs text-muted-foreground">A brief description that appears below the heading</p>
+        <p className="text-xs text-gray-500">A brief description that appears below the heading</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <Label htmlFor="ctaText">Button Text</Label>
+          <div className="flex items-center justify-between">
+            <Label htmlFor="ctaText" className="font-medium">Button Text</Label>
+            <span className="text-xs text-gray-500">{formData.ctaText.length} characters</span>
+          </div>
           <Input
             id="ctaText"
             value={formData.ctaText}
             onChange={(e) => handleChange("ctaText", e.target.value)}
             placeholder="Schedule a Free Consultation"
+            className="font-medium"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="ctaLink">Button Link</Label>
+          <Label htmlFor="ctaLink" className="font-medium">Button Link</Label>
           <Input
             id="ctaLink"
             value={formData.ctaLink}
             onChange={(e) => handleChange("ctaLink", e.target.value)}
             placeholder="#contact"
+            className="font-mono text-sm"
           />
-          <p className="text-xs text-muted-foreground">Use #contact to scroll to contact section</p>
+          <p className="text-xs text-gray-500">Use #contact to scroll to contact section</p>
         </div>
       </div>
 
       {/* Preview */}
-      <div className="border rounded-lg p-6 bg-slate-900 text-white">
-        <p className="text-xs text-slate-400 mb-4">PREVIEW</p>
-        <span className="inline-block px-3 py-1 text-sm bg-yellow-500/20 text-yellow-400 rounded-full mb-3">
-          {formData.subheading}
-        </span>
-        <h2 className="text-2xl font-bold mb-2">{formData.heading}</h2>
-        <p className="text-slate-300 mb-4">{formData.tagline}</p>
-        <span className="inline-block px-4 py-2 bg-primary text-white rounded-lg text-sm">
-          {formData.ctaText}
-        </span>
+      <div className="border-2 rounded-xl p-8 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-lg">
+        <div className="flex items-center gap-2 mb-6">
+          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+          <p className="text-xs text-slate-400 font-medium uppercase tracking-wide">Live Preview</p>
+        </div>
+        <div className="space-y-4">
+          {formData.subheading && (
+            <span className="inline-block px-4 py-1.5 text-sm bg-yellow-500/20 text-yellow-400 rounded-full font-medium">
+              {formData.subheading}
+            </span>
+          )}
+          {formData.heading && (
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight">
+              {formData.heading}
+            </h2>
+          )}
+          {formData.tagline && (
+            <p className="text-slate-300 text-lg leading-relaxed max-w-2xl">
+              {formData.tagline}
+            </p>
+          )}
+          {formData.ctaText && (
+            <div className="pt-2">
+              <span className="inline-block px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg text-base font-semibold transition-colors cursor-pointer">
+                {formData.ctaText}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
 
-      <Button type="submit" disabled={saving}>
-        <Save className="w-4 h-4 mr-2" />
-        {saving ? "Saving..." : "Save Changes"}
-      </Button>
+      <div className="pt-4 border-t">
+        <Button type="submit" disabled={saving} size="lg" className="gap-2">
+          <Save className="w-5 h-5" />
+          {saving ? "Saving Changes..." : "Save Changes"}
+        </Button>
+      </div>
     </form>
   );
 }

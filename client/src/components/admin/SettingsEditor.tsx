@@ -34,65 +34,80 @@ export function SettingsEditor({ content, onSave, onChange, saving }: SettingsEd
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <Label htmlFor="siteName">Site Name</Label>
+          <Label htmlFor="siteName" className="font-medium">Site Name</Label>
           <Input
             id="siteName"
             value={formData.siteName}
             onChange={(e) => handleChange("siteName", e.target.value)}
+            placeholder="Law Office of Enoch P. Hicks"
+            className="font-medium"
           />
-          <p className="text-xs text-muted-foreground">Displayed in the header and footer</p>
+          <p className="text-xs text-gray-500">Displayed in the header and footer</p>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="copyright">Copyright Text</Label>
+          <Label htmlFor="copyright" className="font-medium">Copyright Text</Label>
           <Input
             id="copyright"
             value={formData.copyright}
             onChange={(e) => handleChange("copyright", e.target.value)}
+            placeholder="© 2024 Law Office of Enoch P. Hicks"
+            className="font-medium"
           />
-          <p className="text-xs text-muted-foreground">Displayed in the footer</p>
+          <p className="text-xs text-gray-500">Displayed in the footer</p>
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="metaDescription">Meta Description</Label>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="metaDescription" className="font-medium">Meta Description</Label>
+          <span className="text-xs text-gray-500">{formData.metaDescription.length} characters</span>
+        </div>
         <Textarea
           id="metaDescription"
           value={formData.metaDescription}
           onChange={(e) => handleChange("metaDescription", e.target.value)}
           rows={3}
+          placeholder="Expert legal services in business law, personal injury, and estate planning..."
+          className="resize-none"
         />
-        <p className="text-xs text-muted-foreground">
-          Used for SEO - describes your website to search engines
+        <p className="text-xs text-gray-500">
+          Used for SEO - describes your website to search engines (recommended: 150-160 characters)
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <Label htmlFor="logo">Logo URL</Label>
+          <Label htmlFor="logo" className="font-medium">Logo URL</Label>
           <Input
             id="logo"
             value={formData.logo}
             onChange={(e) => handleChange("logo", e.target.value)}
             placeholder="/images/logo.png"
+            className="font-mono text-sm"
           />
+          <p className="text-xs text-gray-500">Path or URL to your logo image</p>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="favicon">Favicon URL</Label>
+          <Label htmlFor="favicon" className="font-medium">Favicon URL</Label>
           <Input
             id="favicon"
             value={formData.favicon}
             onChange={(e) => handleChange("favicon", e.target.value)}
             placeholder="/images/favicon.ico"
+            className="font-mono text-sm"
           />
+          <p className="text-xs text-gray-500">Path or URL to your favicon</p>
         </div>
       </div>
 
-      <Button type="submit" disabled={saving}>
-        <Save className="w-4 h-4 mr-2" />
-        {saving ? "Saving..." : "Save Changes"}
-      </Button>
+      <div className="pt-4 border-t">
+        <Button type="submit" disabled={saving} size="lg" className="gap-2">
+          <Save className="w-5 h-5" />
+          {saving ? "Saving Changes..." : "Save All Changes"}
+        </Button>
+      </div>
     </form>
   );
 }

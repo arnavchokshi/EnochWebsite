@@ -81,7 +81,7 @@ export function ContactEditor({ content, onSave, onChange, saving }: ContactEdit
     <form onSubmit={handleSubmit} className="space-y-8">
       {/* Basic Contact */}
       <div>
-        <h3 className="font-semibold text-gray-900 mb-4">Basic Information</h3>
+        <h3 className="font-semibold text-gray-900 mb-4 text-lg">Basic Information</h3>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="phone">Phone</Label>
@@ -105,7 +105,7 @@ export function ContactEditor({ content, onSave, onChange, saving }: ContactEdit
 
       {/* Address */}
       <div>
-        <h3 className="font-semibold text-gray-900 mb-4">Address</h3>
+        <h3 className="font-semibold text-gray-900 mb-4 text-lg">Address</h3>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2 md:col-span-2">
             <Label>Street</Label>
@@ -142,7 +142,7 @@ export function ContactEditor({ content, onSave, onChange, saving }: ContactEdit
 
       {/* Office Hours */}
       <div>
-        <h3 className="font-semibold text-gray-900 mb-4">Office Hours</h3>
+        <h3 className="font-semibold text-gray-900 mb-4 text-lg">Office Hours</h3>
         <div className="grid md:grid-cols-3 gap-4">
           <div className="space-y-2">
             <Label>Monday - Friday</Label>
@@ -171,7 +171,7 @@ export function ContactEditor({ content, onSave, onChange, saving }: ContactEdit
       {/* Service Areas */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-gray-900">Service Areas</h3>
+          <h3 className="font-semibold text-gray-900 text-lg">Service Areas</h3>
           <Button type="button" variant="outline" size="sm" onClick={addServiceArea}>
             <Plus className="w-4 h-4 mr-2" />
             Add Area
@@ -199,7 +199,7 @@ export function ContactEditor({ content, onSave, onChange, saving }: ContactEdit
 
       {/* Social Links */}
       <div>
-        <h3 className="font-semibold text-gray-900 mb-4">Social Media</h3>
+        <h3 className="font-semibold text-gray-900 mb-4 text-lg">Social Media</h3>
         <div className="grid md:grid-cols-3 gap-4">
           <div className="space-y-2">
             <Label>Facebook</Label>
@@ -228,10 +228,12 @@ export function ContactEditor({ content, onSave, onChange, saving }: ContactEdit
         </div>
       </div>
 
-      <Button type="submit" disabled={saving}>
-        <Save className="w-4 h-4 mr-2" />
-        {saving ? "Saving..." : "Save Changes"}
-      </Button>
+      <div className="pt-4 border-t">
+        <Button type="submit" disabled={saving} size="lg" className="gap-2">
+          <Save className="w-5 h-5" />
+          {saving ? "Saving Changes..." : "Save All Changes"}
+        </Button>
+      </div>
     </form>
   );
 }
