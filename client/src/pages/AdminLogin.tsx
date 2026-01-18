@@ -43,11 +43,12 @@ export function AdminLogin() {
           </p>
         </div>
 
-        <ShineBorder
-          className="w-full"
-          shineColor="hsl(var(--primary)), hsl(var(--secondary))"
-        >
-          <form onSubmit={handleSubmit} className="p-8 bg-white rounded-xl space-y-6">
+        <div className="relative w-full">
+          <ShineBorder
+            className="w-full"
+            shineColor="hsl(var(--primary)), hsl(var(--secondary))"
+          />
+          <form onSubmit={handleSubmit} className="relative p-8 bg-white rounded-xl space-y-6">
             {error && (
               <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
                 {error}
@@ -88,7 +89,7 @@ export function AdminLogin() {
               </a>
             </p>
           </form>
-        </ShineBorder>
+        </div>
 
         <p className="text-center text-slate-500 text-sm mt-6">
           First time? Use email: admin@ephfirm.com and set your password.

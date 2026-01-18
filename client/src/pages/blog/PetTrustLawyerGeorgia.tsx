@@ -103,66 +103,108 @@ export function PetTrustLawyerGeorgia() {
         <div className="container mx-auto px-4">
           <BlurFade delay={0.2} inView>
             <div className="max-w-4xl mx-auto prose prose-lg max-w-none">
-              <div className="text-sm md:text-base lg:text-lg text-gray-800 font-serif leading-relaxed mb-8">
-                <p className="font-bold mb-4">Protecting Your Beloved Companion's Future.</p>
-                <p className="text-sm md:text-base text-gray-700 leading-relaxed">
-                  As a pet owner, you want to ensure that your beloved companion animals receive proper care, even if you are no longer around to provide for them. A pet trust is a legally enforceable arrangement that allows you to set aside funds and instructions for the continued care of your pet. Unlike informal agreements, a pet trust provides a legally binding agreement to follow your specific wishes, giving you peace of mind that your furry, feathered, or scaled family members will be well-cared for after you're gone.
-                </p>
-              </div>
+              {(() => {
+                // Find the blog post that matches this route
+                const currentPath = window.location.pathname;
+                const currentPost = content.blog.posts.find(
+                  (post) => post.link === currentPath || post.link === `${currentPath}/` || 
+                           currentPath === post.link || currentPath === `${post.link}/` ||
+                           post.link === "/blog/pet-trust-lawyer-georgia" || post.link === "/blog/pet-trust-lawyer-georgia/"
+                );
+                
+                // If database content exists, use it; otherwise show default content
+                if (currentPost?.content) {
+                  return (
+                    <>
+                      <div 
+                        className="text-sm md:text-base lg:text-lg text-gray-800 font-serif leading-relaxed mb-8 prose prose-lg max-w-none"
+                        dangerouslySetInnerHTML={{ __html: currentPost.content }}
+                      />
+                      {/* Navigation */}
+                      <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
+                        <Link to="/">
+                          <Button variant="outline" className="inline-flex items-center">
+                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            Back to Home
+                          </Button>
+                        </Link>
+                        <Link to="/blog/car-accident-claim">
+                          <Button className="inline-flex items-center">
+                            Next: How to Report and Resolve a Car Accident Claim
+                            <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </>
+                  );
+                }
+                
+                // Default hardcoded content (backwards compatibility)
+                return (
+                  <>
+                    <div className="text-sm md:text-base lg:text-lg text-gray-800 font-serif leading-relaxed mb-8">
+                      <p className="font-bold mb-4">Protecting Your Beloved Companion's Future.</p>
+                      <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                        As a pet owner, you want to ensure that your beloved companion animals receive proper care, even if you are no longer around to provide for them. A pet trust is a legally enforceable arrangement that allows you to set aside funds and instructions for the continued care of your pet. Unlike informal agreements, a pet trust provides a legally binding agreement to follow your specific wishes, giving you peace of mind that your furry, feathered, or scaled family members will be well-cared for after you're gone.
+                      </p>
+                    </div>
 
-              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200">
-                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-6">What is a Pet Trust?</h2>
-                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
-                  A pet trust is a specialized legal document that sets aside money and provides specific instructions for the care of your pet(s) after you pass away or become incapacitated. In Georgia, pet trusts are recognized and enforceable under state law, making them a reliable way to ensure your pet's future.
-                </p>
-                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
-                  Unlike simply leaving money to a friend or family member with verbal instructions, a pet trust creates a legal obligation. The trustee you designate is required to use the funds specifically for your pet's care, and the trust can continue for the lifetime of your pet or pets.
-                </p>
-              </div>
+                    <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200">
+                      <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-6">What is a Pet Trust?</h2>
+                      <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
+                        A pet trust is a specialized legal document that sets aside money and provides specific instructions for the care of your pet(s) after you pass away or become incapacitated. In Georgia, pet trusts are recognized and enforceable under state law, making them a reliable way to ensure your pet's future.
+                      </p>
+                      <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
+                        Unlike simply leaving money to a friend or family member with verbal instructions, a pet trust creates a legal obligation. The trustee you designate is required to use the funds specifically for your pet's care, and the trust can continue for the lifetime of your pet or pets.
+                      </p>
+                    </div>
 
-              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200">
-                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-6">Why Create a Pet Trust?</h2>
-                <ul className="list-disc list-inside text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-4 mb-6">
-                  <li><strong>Legal Protection:</strong> Creates a legally binding obligation to care for your pet according to your specific wishes.</li>
-                  <li><strong>Financial Security:</strong> Ensures funds are set aside and used exclusively for your pet's care, including food, veterinary care, grooming, and other needs.</li>
-                  <li><strong>Peace of Mind:</strong> Know that your pet will be cared for by someone you trust, following your instructions.</li>
-                  <li><strong>Detailed Instructions:</strong> You can specify dietary requirements, medical preferences, preferred veterinarians, and other important care details.</li>
-                  <li><strong>Protection During Incapacity:</strong> A pet trust can also take effect if you become incapacitated, not just after death.</li>
-                </ul>
-              </div>
+                    <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200">
+                      <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-6">Why Create a Pet Trust?</h2>
+                      <ul className="list-disc list-inside text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-4 mb-6">
+                        <li><strong>Legal Protection:</strong> Creates a legally binding obligation to care for your pet according to your specific wishes.</li>
+                        <li><strong>Financial Security:</strong> Ensures funds are set aside and used exclusively for your pet's care, including food, veterinary care, grooming, and other needs.</li>
+                        <li><strong>Peace of Mind:</strong> Know that your pet will be cared for by someone you trust, following your instructions.</li>
+                        <li><strong>Detailed Instructions:</strong> You can specify dietary requirements, medical preferences, preferred veterinarians, and other important care details.</li>
+                        <li><strong>Protection During Incapacity:</strong> A pet trust can also take effect if you become incapacitated, not just after death.</li>
+                      </ul>
+                    </div>
 
-              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200">
-                <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-6">How We Can Help</h2>
-                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
-                  At The Law Office of Enoch P. Hicks, we understand that pets are family. Our experienced estate planning attorneys can help you create a comprehensive pet trust that protects your companion's future. We'll work with you to:
-                </p>
-                <ul className="list-disc list-inside text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-4 mb-6">
-                  <li>Designate a trusted caregiver for your pet</li>
-                  <li>Set aside appropriate funds for your pet's lifetime needs</li>
-                  <li>Provide detailed care instructions</li>
-                  <li>Ensure the trust complies with Georgia law</li>
-                  <li>Integrate the pet trust with your overall estate plan</li>
-                </ul>
-                <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-8">
-                  Don't leave your pet's future to chance. Contact us today for a free consultation to discuss how a pet trust can protect your beloved companion.
-                </p>
-              </div>
+                    <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200">
+                      <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-6">How We Can Help</h2>
+                      <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
+                        At The Law Office of Enoch P. Hicks, we understand that pets are family. Our experienced estate planning attorneys can help you create a comprehensive pet trust that protects your companion's future. We'll work with you to:
+                      </p>
+                      <ul className="list-disc list-inside text-sm md:text-base text-gray-700 leading-relaxed space-y-2 md:space-y-4 mb-6">
+                        <li>Designate a trusted caregiver for your pet</li>
+                        <li>Set aside appropriate funds for your pet's lifetime needs</li>
+                        <li>Provide detailed care instructions</li>
+                        <li>Ensure the trust complies with Georgia law</li>
+                        <li>Integrate the pet trust with your overall estate plan</li>
+                      </ul>
+                      <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-8">
+                        Don't leave your pet's future to chance. Contact us today for a free consultation to discuss how a pet trust can protect your beloved companion.
+                      </p>
+                    </div>
 
-              {/* Navigation */}
-              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
-                <Link to="/">
-                  <Button variant="outline" className="inline-flex items-center">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Home
-                  </Button>
-                </Link>
-                <Link to="/blog/car-accident-claim">
-                  <Button className="inline-flex items-center">
-                    Next: How to Report and Resolve a Car Accident Claim
-                    <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
-                  </Button>
-                </Link>
-              </div>
+                    {/* Navigation */}
+                    <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
+                      <Link to="/">
+                        <Button variant="outline" className="inline-flex items-center">
+                          <ArrowLeft className="w-4 h-4 mr-2" />
+                          Back to Home
+                        </Button>
+                      </Link>
+                      <Link to="/blog/car-accident-claim">
+                        <Button className="inline-flex items-center">
+                          Next: How to Report and Resolve a Car Accident Claim
+                          <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </>
+                );
+              })()}
             </div>
           </BlurFade>
         </div>

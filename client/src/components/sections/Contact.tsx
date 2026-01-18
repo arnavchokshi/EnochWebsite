@@ -53,7 +53,7 @@ export function Contact({ content }: ContactProps) {
             <h2 className="text-sm uppercase tracking-[0.4em] font-bold text-primary mb-4">
               Get In Touch
             </h2>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-secondary max-w-3xl mx-auto">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-secondary max-w-3xl mx-auto leading-tight">
               Schedule Your Free Consultation
             </h3>
             <p className="mt-6 text-base md:text-lg text-gray-500 max-w-2xl mx-auto">

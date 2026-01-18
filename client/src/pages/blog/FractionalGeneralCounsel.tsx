@@ -103,7 +103,46 @@ export function FractionalGeneralCounsel() {
         <div className="container mx-auto px-4">
           <BlurFade delay={0.2} inView>
             <div className="max-w-4xl mx-auto prose prose-lg max-w-none">
-              <div className="text-sm md:text-base lg:text-lg text-gray-800 font-serif leading-relaxed mb-8">
+              {(() => {
+                // Find the blog post that matches this route
+                const currentPath = window.location.pathname;
+                const currentPost = content.blog.posts.find(
+                  (post) => post.link === currentPath || post.link === `${currentPath}/` || 
+                           currentPath === post.link || currentPath === `${post.link}/` ||
+                           post.link === "/blog/fractional-general-counsel" || post.link === "/blog/fractional-general-counsel/"
+                );
+                
+                // If database content exists, use it; otherwise show default content
+                if (currentPost?.content) {
+                  return (
+                    <>
+                      <div 
+                        className="text-sm md:text-base lg:text-lg text-gray-800 font-serif leading-relaxed mb-8 prose prose-lg max-w-none"
+                        dangerouslySetInnerHTML={{ __html: currentPost.content }}
+                      />
+                      {/* Navigation */}
+                      <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
+                        <Link to="/blog/car-accident-claim">
+                          <Button variant="outline" className="inline-flex items-center">
+                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            Previous: How to Report and Resolve a Car Accident Claim
+                          </Button>
+                        </Link>
+                        <Link to="/">
+                          <Button className="inline-flex items-center">
+                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            Back to Home
+                          </Button>
+                        </Link>
+                      </div>
+                    </>
+                  );
+                }
+                
+                // Default hardcoded content (backwards compatibility)
+                return (
+                  <>
+                    <div className="text-sm md:text-base lg:text-lg text-gray-800 font-serif leading-relaxed mb-8">
                 <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   Businesses today face a wide range of legal challenges, from contract negotiations to compliance issues. However, not every company can afford a full-time in-house attorney. This is where a Fractional General Counsel comes in—a cost-effective solution that provides ongoing legal support without the high price tag of a full-time hire.
                 </p>
@@ -332,21 +371,24 @@ export function FractionalGeneralCounsel() {
                 </div>
               </div>
 
-              {/* Navigation */}
-              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
-                <Link to="/blog/car-accident-claim">
-                  <Button variant="outline" className="inline-flex items-center">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Previous: How to Report and Resolve a Car Accident Claim
-                  </Button>
-                </Link>
-                <Link to="/">
-                  <Button className="inline-flex items-center">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Home
-                  </Button>
-                </Link>
-              </div>
+                      {/* Navigation */}
+                      <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
+                        <Link to="/blog/car-accident-claim">
+                          <Button variant="outline" className="inline-flex items-center">
+                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            Previous: How to Report and Resolve a Car Accident Claim
+                          </Button>
+                        </Link>
+                        <Link to="/">
+                          <Button className="inline-flex items-center">
+                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            Back to Home
+                          </Button>
+                        </Link>
+                      </div>
+                    </>
+                  );
+                })()}
             </div>
           </BlurFade>
         </div>

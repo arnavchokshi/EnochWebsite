@@ -347,10 +347,10 @@ export function About() {
       <section className="py-8 md:py-16 bg-white">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
-            <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+            <div className="max-w-6xl mx-auto grid md:grid-cols-[1fr,1.5fr] gap-8">
               {/* Left: CTA Box */}
               <Card className="bg-primary p-8 text-white border-0 shadow-xl">
-                <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">
+                <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4" style={{ lineHeight: '1.1', wordSpacing: '-0.05em' }}>
                   Contact Attorney Enoch P. Hicks Today for a Consultation
                 </h2>
                 <p className="text-white/90 mb-6 leading-relaxed">

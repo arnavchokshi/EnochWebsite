@@ -105,6 +105,7 @@ export interface BlogPost {
   date: string;
   image: string;
   link: string;
+  content: string;
 }
 
 export interface BlogContent {
@@ -261,6 +262,7 @@ export async function fetchAllContent(): Promise<AllContent> {
         date: post.date || '',
         image: post.image || '',
         link: post.link || '',
+        content: post.content || '',
       })),
     };
 
@@ -362,6 +364,7 @@ export async function fetchSection<T>(section: string): Promise<T> {
             date: post.date || '',
             image: post.image || '',
             link: post.link || '',
+            content: post.content || '',
           })),
         } as T;
       }
@@ -499,6 +502,7 @@ export async function updateSection(section: string, data: unknown, _token?: str
               date: post.date,
               image: post.image,
               link: post.link,
+              content: post.content || '',
               order_index: i,
             });
           }

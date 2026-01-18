@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
-import { Save, Plus, Trash2, Copy, Upload, Image as ImageIcon, Search, FileText } from "lucide-react";
+import { Save, Plus, Trash2, Copy, Upload, Image as ImageIcon, Search, FileText, ChevronDown, ChevronUp, Edit } from "lucide-react";
 import type { BlogContent, BlogPost } from "@/lib/api";
 
 interface BlogEditorProps {
@@ -18,6 +18,7 @@ export function BlogEditor({ content, onSave, onChange, saving, onImageUpload }:
   const [formData, setFormData] = useState<BlogContent>(content);
   const [searchQuery, setSearchQuery] = useState("");
   const [uploadingImage, setUploadingImage] = useState<string | null>(null);
+  const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
   const fileInputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
 
   useEffect(() => {
@@ -48,11 +49,14 @@ export function BlogEditor({ content, onSave, onChange, saving, onImageUpload }:
       date: new Date().toISOString().split("T")[0],
       image: "",
       link: "/blog/new-post",
+      content: "",
     };
     setFormData((prev) => ({
       ...prev,
       posts: [...prev.posts, newPost],
     }));
+    // Auto-expand the new post to edit content
+    setExpandedPostId(newPost.id);
     onChange();
   };
 
@@ -178,11 +182,11 @@ export function BlogEditor({ content, onSave, onChange, saving, onImageUpload }:
               className="border-2 rounded-xl p-6 space-y-5 bg-white shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="flex items-center justify-between pb-3 border-b">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-1">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                     <FileText className="w-5 h-5 text-primary" />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <span className="font-semibold text-gray-900 block">
                       {post.title || "Untitled Post"}
                     </span>
@@ -190,6 +194,27 @@ export function BlogEditor({ content, onSave, onChange, saving, onImageUpload }:
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setExpandedPostId(expandedPostId === post.id ? null : post.id)}
+                    className="gap-2"
+                    title={expandedPostId === post.id ? "Collapse full content editor" : "Edit full content"}
+                  >
+                    <Edit className="w-4 h-4" />
+                    {expandedPostId === post.id ? (
+                      <>
+                        Hide Content
+                        <ChevronUp className="w-4 h-4" />
+                      </>
+                    ) : (
+                      <>
+                        Edit Content
+                        <ChevronDown className="w-4 h-4" />
+                      </>
+                    )}
+                  </Button>
                   <Button
                     type="button"
                     variant="ghost"
@@ -331,6 +356,28 @@ export function BlogEditor({ content, onSave, onChange, saving, onImageUpload }:
                       )}
                     </div>
                   </div>
+                </div>
+              )}
+
+              {/* Full Content Editor - Expanded View */}
+              {expandedPostId === post.id && (
+                <div className="pt-4 border-t space-y-2">
+                  <Label className="font-medium flex items-center gap-2">
+                    <FileText className="w-4 h-4" />
+                    Full Blog Post Content
+                  </Label>
+                  <p className="text-xs text-gray-500 mb-2">
+                    This is the detailed content shown when customers click on the blog post. Use rich text formatting for headings, lists, and paragraphs.
+                  </p>
+                  <RichTextEditor
+                    value={post.content || ''}
+                    onChange={(value) => handlePostChange(post.id, "content", value)}
+                    placeholder="Write the full blog post content here... This content will be displayed on the detailed blog post page when customers click on the post."
+                    rows={15}
+                  />
+                  <p className="text-xs text-gray-500 mt-2">
+                    This content appears on the detailed blog post page ({post.link || '/blog/post'})
+                  </p>
                 </div>
               )}
             </div>

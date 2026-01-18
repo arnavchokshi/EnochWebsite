@@ -31,8 +31,9 @@ export function Hero({ content, contact }: HeroProps) {
       
       <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-8 md:pt-16">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 md:gap-12">
+          <div className="flex-1 max-w-[48%]">
           {/* Text Content */}
-          <div className="flex-1 text-left w-full">
+          <div className="text-left w-full">
             <BlurFade delay={0.1} inView>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 mb-4 md:mb-6 text-[9px] md:text-[10px] uppercase tracking-[0.25em] md:tracking-[0.3em] font-bold text-white/90 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
                 <span className="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
@@ -48,8 +49,8 @@ export function Hero({ content, contact }: HeroProps) {
                 <TextAnimate animation="blurInUp" by="line" once>
                   {content.heading.split(' ').slice(0, 2).join(' ')}
                 </TextAnimate>
-                <br className="block" style={{ lineHeight: '0.3', margin: '0' }} />
-                <span className="text-primary italic drop-shadow-lg block" style={{ marginTop: '-0.15em' }}>
+                <br className="block" style={{ lineHeight: '0', margin: '0', height: '0', display: 'block' }} />
+                <span className="text-primary italic drop-shadow-lg block" style={{ marginTop: '-0.8em', lineHeight: '1' }}>
                   <TextAnimate animation="blurInUp" by="line" once>
                     {content.heading.split(' ').slice(2).join(' ')}
                   </TextAnimate>
@@ -89,11 +90,12 @@ export function Hero({ content, contact }: HeroProps) {
               </div>
             </BlurFade>
           </div>
+          </div>
 
           {/* Image & Globe Side - Hidden on mobile, shown on large screens */}
-          <div className="hidden lg:flex flex-1 relative">
+          <div className="hidden lg:flex flex-1 relative ml-auto mr-0" style={{ transform: 'translateX(100px)' }}>
             <BlurFade delay={0.6} inView className="relative z-20">
-              <div className="relative aspect-[4/5] max-w-[400px] mx-auto overflow-hidden border-8 border-white shadow-2xl">
+              <div className="relative aspect-[4/5] max-w-[400px] ml-auto mr-0 overflow-hidden border-8 border-white shadow-2xl">
                 <img
                   src={EnochImage}
                   alt="Attorney Enoch P. Hicks"

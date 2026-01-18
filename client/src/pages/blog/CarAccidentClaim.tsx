@@ -103,7 +103,46 @@ export function CarAccidentClaim() {
         <div className="container mx-auto px-4">
           <BlurFade delay={0.2} inView>
             <div className="max-w-4xl mx-auto prose prose-lg max-w-none">
-              <div className="text-sm md:text-base lg:text-lg text-gray-800 font-serif leading-relaxed mb-8">
+              {(() => {
+                // Find the blog post that matches this route
+                const currentPath = window.location.pathname;
+                const currentPost = content.blog.posts.find(
+                  (post) => post.link === currentPath || post.link === `${currentPath}/` || 
+                           currentPath === post.link || currentPath === `${post.link}/` ||
+                           post.link === "/blog/car-accident-claim" || post.link === "/blog/car-accident-claim/"
+                );
+                
+                // If database content exists, use it; otherwise show default content
+                if (currentPost?.content) {
+                  return (
+                    <>
+                      <div 
+                        className="text-sm md:text-base lg:text-lg text-gray-800 font-serif leading-relaxed mb-8 prose prose-lg max-w-none"
+                        dangerouslySetInnerHTML={{ __html: currentPost.content }}
+                      />
+                      {/* Navigation */}
+                      <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
+                        <Link to="/blog/pet-trust-lawyer-georgia">
+                          <Button variant="outline" className="inline-flex items-center">
+                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            Previous: Pet Trust Lawyer in Georgia
+                          </Button>
+                        </Link>
+                        <Link to="/blog/fractional-general-counsel">
+                          <Button className="inline-flex items-center">
+                            Next: What is a Fractional General Counsel?
+                            <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </>
+                  );
+                }
+                
+                // Default hardcoded content (backwards compatibility)
+                return (
+                  <>
+                    <div className="text-sm md:text-base lg:text-lg text-gray-800 font-serif leading-relaxed mb-8">
                 <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
                   Being involved in a car accident can be overwhelming, but knowing how to report and resolve your auto insurance claim can help you recover compensation for vehicle damage, medical expenses, and lost wages. Insurance companies often try to minimize payouts, so understanding the claims process is crucial.
                 </p>
@@ -403,21 +442,24 @@ export function CarAccidentClaim() {
                 </div>
               </div>
 
-              {/* Navigation */}
-              <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
-                <Link to="/blog/pet-trust-lawyer-georgia">
-                  <Button variant="outline" className="inline-flex items-center">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Previous: Pet Trust Lawyer in Georgia
-                  </Button>
-                </Link>
-                <Link to="/blog/fractional-general-counsel">
-                  <Button className="inline-flex items-center">
-                    Next: What is a Fractional General Counsel?
-                    <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
-                  </Button>
-                </Link>
-              </div>
+                      {/* Navigation */}
+                      <div className="mt-8 md:mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
+                        <Link to="/blog/pet-trust-lawyer-georgia">
+                          <Button variant="outline" className="inline-flex items-center">
+                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            Previous: Pet Trust Lawyer in Georgia
+                          </Button>
+                        </Link>
+                        <Link to="/blog/fractional-general-counsel">
+                          <Button className="inline-flex items-center">
+                            Next: What is a Fractional General Counsel?
+                            <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </>
+                  );
+                })()}
             </div>
           </BlurFade>
         </div>
