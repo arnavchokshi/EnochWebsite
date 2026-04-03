@@ -7,46 +7,46 @@ interface TeamProps {
 
 export function Team({ content }: TeamProps) {
   return (
-    <section className="py-32 bg-white" id="team">
-      <div className="container mx-auto px-4">
+    <section className="py-24 md:py-32 bg-white" id="team">
+      <div className="container mx-auto px-6">
         <BlurFade delay={0.1} inView>
-          <div className="text-center mb-24">
-            <h2 className="text-sm uppercase tracking-[0.4em] font-bold text-primary mb-4">
+          <div className="text-center mb-16 md:mb-24">
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
               Our Expertise
             </h2>
-            <h3 className="text-4xl md:text-5xl font-serif font-bold text-secondary max-w-2xl mx-auto">
+            <h3 className="text-4xl md:text-5xl font-bold text-secondary max-w-2xl mx-auto tracking-tight">
               {content.sectionTitle}
             </h3>
           </div>
         </BlurFade>
 
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-1 gap-16">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 gap-20">
             {content.members.map((member, index) => (
               <BlurFade key={member.id} delay={0.3 + index * 0.1} inView>
                 <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
-                  <div className="relative group w-full md:w-1/3">
-                    <div className="absolute -inset-4 border-2 border-primary/20 -z-10 group-hover:inset-0 transition-all duration-500"></div>
-                    <div className="aspect-[4/5] overflow-hidden bg-gray-100 border-[12px] border-white shadow-xl">
+                  <div className="relative group w-full md:w-2/5 max-w-sm mx-auto md:mx-0">
+                    <div className="aspect-[4/5] overflow-hidden rounded-3xl bg-slate-50 ring-1 ring-primary/20 shadow-2xl transition-transform duration-700 group-hover:-translate-y-2">
                       <img
-                        src={member.image.startsWith("http") || member.image.startsWith("/images") ? member.image : `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(member.name)}&backgroundColor=c9a227`}
+                        src={member.image.startsWith("http") || member.image.startsWith("/images") ? member.image : `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(member.name)}&backgroundColor=0f172a`}
                         alt={member.name}
-                        className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-secondary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
                   </div>
                   
                   <div className="flex-1 text-center md:text-left">
-                    <div className="inline-block h-px w-12 bg-primary mb-6"></div>
-                    <h3 className="text-3xl md:text-4xl font-serif font-bold text-secondary mb-2">
+                    <h3 className="text-3xl md:text-4xl font-bold text-secondary mb-3 tracking-tight">
                       {member.name}
                     </h3>
-                    <p className="text-xs uppercase tracking-[0.3em] font-bold text-primary mb-8">
+                    <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-8">
                       {member.role}
                     </p>
-                    <div className="bg-slate-50 p-8 md:p-10 border-l-4 border-primary shadow-sm">
-                      <p className="text-gray-600 leading-relaxed font-medium italic text-lg">
-                        "{member.bio}"
+                    <div className="bg-slate-50 p-8 md:p-10 rounded-3xl border border-primary/10 relative">
+                      <div className="absolute -top-4 -left-4 text-6xl text-primary/30 font-serif leading-none opacity-50">"</div>
+                      <p className="text-slate-600 leading-relaxed text-lg font-light relative z-10">
+                        {member.bio}
                       </p>
                     </div>
                   </div>

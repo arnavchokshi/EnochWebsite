@@ -63,7 +63,7 @@ export function BusinessLaw() {
       
       {/* Hero Section */}
       <section 
-        className="py-20 md:py-32 relative overflow-hidden"
+        className="legal-section py-20 md:py-32 relative overflow-hidden"
         style={{
           backgroundImage: `url(${BusinessLawBg})`,
           backgroundSize: 'cover',
@@ -93,7 +93,7 @@ export function BusinessLaw() {
       </section>
 
       {/* Introduction & Other Practice Areas */}
-      <section className="py-8 md:py-12 lg:py-16 bg-white">
+      <section className="legal-section py-8 md:py-12 lg:py-16 bg-[#f6f2ea]">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto">
@@ -125,7 +125,7 @@ export function BusinessLaw() {
       </section>
 
       {/* Services Section */}
-      <section className="py-8 md:py-12 lg:py-16 bg-slate-50">
+      <section className="legal-section py-8 md:py-12 lg:py-16 bg-[#ece8df]">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto">
@@ -182,7 +182,7 @@ export function BusinessLaw() {
       </section>
 
       {/* Why Choose & CTA Combined */}
-      <section className="py-8 md:py-12 lg:py-16 bg-white">
+      <section className="legal-section py-8 md:py-12 lg:py-16 bg-[#f6f2ea]">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto">
@@ -215,7 +215,7 @@ export function BusinessLaw() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-8 md:py-12 lg:py-16 bg-secondary text-white">
+      <section className="legal-section py-8 md:py-12 lg:py-16 bg-gradient-to-br from-[#0b1c30] via-[#0f2237] to-[#132c47] text-white">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-4xl mx-auto text-center">
@@ -229,7 +229,7 @@ export function BusinessLaw() {
                 <Link to="/#contact">
                   <Button
                     size="lg"
-                    className="bg-primary hover:bg-primary/90 text-white rounded-none h-14 px-10 text-sm font-bold uppercase tracking-widest transition-all duration-300 shadow-xl shadow-primary/20 flex items-center gap-2"
+                    className="btn-lux rounded-none h-14 px-10 text-sm font-bold uppercase tracking-widest shadow-xl shadow-primary/20 flex items-center gap-2"
                   >
                     <Calendar className="w-5 h-5" />
                     Schedule Consultation

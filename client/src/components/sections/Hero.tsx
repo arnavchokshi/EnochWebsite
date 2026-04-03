@@ -15,28 +15,28 @@ export function Hero({ content, contact }: HeroProps) {
   return (
     <section 
       id="hero" 
-      className="relative min-h-screen flex items-start overflow-hidden pt-20 pb-8 md:pt-32 md:pb-20"
-      style={{
-        backgroundImage: `url(${HeroBackground})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
+      className="relative min-h-screen flex items-center overflow-hidden pt-20 pb-12"
     >
-      {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/40 z-0"></div>
+      {/* Background Image with modern, clean overlay */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url(${HeroBackground})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
+      <div className="absolute inset-0 bg-secondary/85 z-0 backdrop-blur-[2px]"></div>
       
-      {/* Dark gradient at bottom for stats section */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 via-black/50 to-transparent z-0"></div>
-      
-      <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-8 md:pt-16">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 md:gap-12">
-          <div className="flex-1 max-w-[48%]">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+          
           {/* Text Content */}
-          <div className="text-left w-full">
+          <div className="flex-1 max-w-2xl text-center lg:text-left pt-12 lg:pt-0">
             <BlurFade delay={0.1} inView>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 mb-4 md:mb-6 text-[9px] md:text-[10px] uppercase tracking-[0.25em] md:tracking-[0.3em] font-bold text-white/90 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
-                <span className="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/90 text-sm font-medium mb-8 backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-full w-full bg-primary"></span>
                 </span>
@@ -44,104 +44,76 @@ export function Hero({ content, contact }: HeroProps) {
               </div>
             </BlurFade>
 
-            <BlurFade delay={0.25} inView>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 md:mb-6 drop-shadow-lg leading-tight" style={{ wordSpacing: '-0.05em', letterSpacing: '-0.02em' }}>
+            <BlurFade delay={0.2} inView>
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 tracking-tight leading-[1.1]">
                 <TextAnimate animation="blurInUp" by="line" once>
-                  {content.heading.split(' ').slice(0, 2).join(' ')}
+                  {content.heading}
                 </TextAnimate>
-                <br className="block" style={{ lineHeight: '0', margin: '0', height: '0', display: 'block' }} />
-                <span className="text-primary italic drop-shadow-lg block" style={{ marginTop: '-0.8em', lineHeight: '1' }}>
-                  <TextAnimate animation="blurInUp" by="line" once>
-                    {content.heading.split(' ').slice(2).join(' ')}
-                  </TextAnimate>
-                </span>
               </h1>
             </BlurFade>
 
-            <BlurFade delay={0.4} inView>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-6 md:mb-8 max-w-xl font-medium leading-relaxed drop-shadow-md">
+            <BlurFade delay={0.3} inView>
+              <p className="text-base sm:text-lg lg:text-xl text-white/70 mb-10 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
                 {content.tagline}
               </p>
             </BlurFade>
 
-            <BlurFade delay={0.55} inView>
-              <div className="flex flex-col items-stretch gap-4 md:gap-8">
-                <a href={content.ctaLink} className="inline-block">
+            <BlurFade delay={0.4} inView>
+              <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                <a href={content.ctaLink} className="w-full sm:w-auto">
                   <Button
                     size="lg"
-                    className="bg-primary hover:bg-primary/90 text-white rounded-none h-14 md:h-16 w-full sm:w-auto px-8 md:px-10 text-xs md:text-sm font-bold uppercase tracking-widest transition-all duration-300 shadow-xl shadow-primary/20 group"
+                    className="h-14 w-full sm:w-auto px-8 text-base font-semibold rounded-full shadow-lg bg-primary text-white hover:bg-primary/90 hover:scale-105 transition-transform group"
                   >
                     {content.ctaText}
-                    <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </a>
                 <a
                   href={`tel:${contact.phone}`}
-                  className="flex items-center gap-3 md:gap-4 group"
+                  className="flex items-center gap-3 px-8 h-14 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors text-white w-full sm:w-auto justify-center backdrop-blur-md"
                 >
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-primary/20 flex items-center justify-center group-hover:bg-primary/5 transition-colors flex-shrink-0">
-                    <Phone className="w-4 h-4 md:w-5 md:h-5 text-primary" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[9px] md:text-[10px] uppercase tracking-widest text-white/70 font-bold">Call Now</span>
-                    <span className="text-base md:text-lg font-serif font-bold text-white">{contact.phone}</span>
-                  </div>
+                  <Phone className="w-5 h-5 text-primary" />
+                  <span className="font-medium">{contact.phone}</span>
                 </a>
               </div>
             </BlurFade>
           </div>
-          </div>
 
-          {/* Image & Globe Side - Hidden on mobile, shown on large screens */}
-          <div className="hidden lg:flex flex-1 relative ml-auto mr-0" style={{ transform: 'translateX(100px)' }}>
-            <BlurFade delay={0.6} inView className="relative z-20">
-              <div className="relative aspect-[4/5] max-w-[400px] ml-auto mr-0 overflow-hidden border-8 border-white shadow-2xl">
+          {/* Image Side */}
+          <div className="flex-1 w-full max-w-[280px] sm:max-w-xs lg:max-w-sm relative mx-auto lg:mx-0 lg:ml-auto">
+            <BlurFade delay={0.5} inView>
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/10">
                 <img
                   src={EnochImage}
                   alt="Attorney Enoch P. Hicks"
-                  className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/40 to-transparent opacity-60"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/20 to-transparent"></div>
               </div>
             </BlurFade>
-
-            {/* Decorative elements */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl"></div>
-            <div className="absolute top-1/2 -left-20 w-60 h-60 bg-secondary/5 rounded-full blur-3xl"></div>
           </div>
         </div>
 
-        {/* Mobile Image - Only shown on small screens, positioned at bottom */}
-        <BlurFade delay={0.6} inView className="lg:hidden relative z-20 mt-8">
-          <div className="relative aspect-[3/4] max-w-[280px] mx-auto overflow-hidden border-4 border-white shadow-2xl">
-            <img
-              src={EnochImage}
-              alt="Attorney Enoch P. Hicks"
-              className="w-full h-full object-cover grayscale-[0.2] transition-all duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-secondary/40 to-transparent opacity-60"></div>
-          </div>
-        </BlurFade>
-
-        {/* Stats Section */}
-        <BlurFade delay={0.7} inView>
-          <div className="mt-8 md:mt-16 lg:mt-32 pt-6 md:pt-8 border-t border-white/40 relative z-10">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
-              <div className="text-center px-3 md:px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
-                <div className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary mb-1 md:mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">9+</div>
-                <div className="text-xs md:text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Years Experience</div>
+        {/* Simplified Stats Section */}
+        <BlurFade delay={0.6} inView>
+          <div className="mt-16 lg:mt-20 pt-8 lg:pt-10 border-t border-white/10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 max-w-4xl mx-auto lg:mx-0">
+              <div className="text-center lg:text-left">
+                <div className="text-3xl lg:text-4xl font-bold text-primary mb-2">9+</div>
+                <div className="text-xs lg:text-sm text-white/70 font-medium uppercase tracking-wider">Years Experience</div>
               </div>
-              <div className="text-center px-3 md:px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
-                <div className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary mb-1 md:mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">500+</div>
-                <div className="text-xs md:text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Cases Handled</div>
+              <div className="text-center lg:text-left">
+                <div className="text-3xl lg:text-4xl font-bold text-primary mb-2">500+</div>
+                <div className="text-xs lg:text-sm text-white/70 font-medium uppercase tracking-wider">Cases Handled</div>
               </div>
-              <div className="text-center px-3 md:px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
-                <div className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary mb-1 md:mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">3x</div>
-                <div className="text-xs md:text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Super Lawyers</div>
+              <div className="text-center lg:text-left">
+                <div className="text-3xl lg:text-4xl font-bold text-primary mb-2">3x</div>
+                <div className="text-xs lg:text-sm text-white/70 font-medium uppercase tracking-wider">Super Lawyers</div>
               </div>
-              <div className="text-center px-3 md:px-4 py-2 rounded-lg bg-black/20 backdrop-blur-sm">
-                <div className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-primary mb-1 md:mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">100%</div>
-                <div className="text-xs md:text-sm uppercase tracking-widest text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">Client Focused</div>
+              <div className="text-center lg:text-left">
+                <div className="text-3xl lg:text-4xl font-bold text-primary mb-2">100%</div>
+                <div className="text-xs lg:text-sm text-white/70 font-medium uppercase tracking-wider">Client Focused</div>
               </div>
             </div>
           </div>

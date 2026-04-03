@@ -66,13 +66,13 @@ export function About() {
       <Navbar contact={content.contact} settings={content.siteSettings} />
       
       {/* Hero Section with Headshot */}
-      <section className="py-8 md:py-16 bg-white relative overflow-hidden">
+      <section className="legal-section py-10 md:py-18 bg-[#f6f2ea] relative overflow-hidden">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
               {/* Left: Headshot */}
               <div className="relative">
-                <div className="relative bg-slate-900 aspect-[3/4] max-w-md mx-auto overflow-hidden">
+                <div className="legal-shell relative bg-slate-900 aspect-[3/4] max-w-md mx-auto overflow-hidden">
                   <img 
                     src={EnochHeadshot}
                     alt="Enoch P. Hicks"
@@ -80,7 +80,7 @@ export function About() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
-                <div className="mt-6 bg-white p-6 shadow-lg border border-gray-100">
+                <div className="legal-card mt-6 bg-white p-6">
                   <h2 className="text-2xl font-serif font-bold text-secondary mb-1">Enoch P. Hicks</h2>
                   <p className="text-primary font-semibold">Georgia Lawyer</p>
                   <p className="text-sm text-gray-500 mt-2">Attorney Biography</p>
@@ -90,11 +90,11 @@ export function About() {
               {/* Right: Intro Content */}
               <div className="space-y-6">
                 <div>
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-secondary mb-4">
+                  <h1 className="legal-title text-3xl sm:text-4xl md:text-5xl font-bold text-secondary mb-4">
                     Enoch P. Hicks
                   </h1>
                   <p className="text-lg md:text-xl text-secondary/80 mb-6">Georgia Lawyer</p>
-                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-secondary mb-4">
+                  <h2 className="legal-title text-2xl sm:text-3xl font-bold text-secondary mb-4">
                     A Personalized Approach to Legal Representation
                   </h2>
                   <p className="text-sm md:text-base text-gray-700 leading-relaxed">
@@ -108,26 +108,26 @@ export function About() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-8 md:py-16 bg-slate-50">
+      <section className="legal-section py-8 md:py-16 bg-[#ece8df]">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.1} inView>
             <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
-              <Card className="text-center p-6 bg-white border-primary/20 hover:shadow-lg transition-shadow">
+              <Card className="legal-card text-center p-6 bg-white border-primary/20">
                 <div className="text-4xl font-bold text-primary mb-2">9+</div>
                 <div className="text-sm text-gray-600 font-semibold">Years Experience</div>
                 <div className="text-xs text-gray-500 mt-1">Since 2016</div>
               </Card>
-              <Card className="text-center p-6 bg-white border-primary/20 hover:shadow-lg transition-shadow">
+              <Card className="legal-card text-center p-6 bg-white border-primary/20">
                 <div className="text-4xl font-bold text-primary mb-2">3</div>
                 <div className="text-sm text-gray-600 font-semibold">Superior Courts</div>
                 <div className="text-xs text-gray-500 mt-1">All of Georgia</div>
               </Card>
-              <Card className="text-center p-6 bg-white border-primary/20 hover:shadow-lg transition-shadow">
+              <Card className="legal-card text-center p-6 bg-white border-primary/20">
                 <div className="text-4xl font-bold text-primary mb-2">50+</div>
                 <div className="text-sm text-gray-600 font-semibold">States Admitted</div>
                 <div className="text-xs text-gray-500 mt-1">Pro hac vice</div>
               </Card>
-              <Card className="text-center p-6 bg-white border-primary/20 hover:shadow-lg transition-shadow">
+              <Card className="legal-card text-center p-6 bg-white border-primary/20">
                 <div className="text-4xl font-bold text-primary mb-2">3</div>
                 <div className="text-sm text-gray-600 font-semibold">Rising Star</div>
                 <div className="text-xs text-gray-500 mt-1">2023-2025</div>

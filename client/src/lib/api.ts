@@ -1,31 +1,6 @@
-import { supabase } from './supabase';
+// Local content API (Supabase-free)
+// Persists editable sections in localStorage for admin usage.
 
-// Database row types
-interface BlogRow {
-  id: string;
-  section_title: string;
-  section_description: string;
-}
-
-interface PracticeAreasRow {
-  id: string;
-  section_title: string;
-  section_description: string;
-}
-
-interface HowItWorksRow {
-  id: string;
-  section_title: string;
-  section_description: string;
-}
-
-interface TeamRow {
-  id: string;
-  section_title: string;
-  section_description: string;
-}
-
-// Types (kept the same for component compatibility)
 export interface HeroContent {
   heading: string;
   subheading: string;
@@ -138,589 +113,296 @@ export interface AllContent {
   siteSettings: SiteSettings;
 }
 
-// Helper function to get single row from a table
-async function getSingleRow<T>(table: string): Promise<T | null> {
-  const { data, error } = await supabase
-    .from(table)
-    .select('*')
-    .limit(1)
-    .single();
-  
-  if (error) {
-    console.error(`Error fetching ${table}:`, error);
-    return null;
-  }
-  
-  return data as T;
-}
+const STORAGE_KEY = "enoch-website-content";
 
-// Helper function to transform database row to API format
-function transformHeroRow(row: any): HeroContent {
-  return {
-    heading: row.heading || '',
-    subheading: row.subheading || '',
-    tagline: row.tagline || '',
-    ctaText: row.cta_text || '',
-    ctaLink: row.cta_link || '',
-  };
-}
-
-function transformContactRow(row: any): ContactContent {
-  return {
-    phone: row.phone || '',
-    email: row.email || '',
+const DEFAULT_CONTENT: AllContent = {
+  hero: {
+    heading: "Powerful Legal Advocacy",
+    subheading: "Trusted Representation Across Georgia",
+    tagline:
+      "Focused counsel for business law, personal injury, and estate planning with a client-first approach.",
+    ctaText: "Schedule Free Consultation",
+    ctaLink: "#contact",
+  },
+  practiceAreas: {
+    sectionTitle: "Practice Areas",
+    sectionDescription: "Legal services tailored to your needs.",
+    areas: [
+      {
+        id: "business-law",
+        title: "Business Law",
+        description: "Strategic counsel for contracts, disputes, and ongoing business risk management.",
+        icon: "briefcase",
+        link: "/practice/business-law",
+      },
+      {
+        id: "personal-injury",
+        title: "Personal Injury",
+        description: "Aggressive representation to pursue the compensation you deserve after an injury.",
+        icon: "shield",
+        link: "/practice/personal-injury",
+      },
+      {
+        id: "estate-planning",
+        title: "Estate Planning",
+        description: "Protect your family and legacy with clear, thoughtful estate planning strategies.",
+        icon: "file-text",
+        link: "/practice/estate-planning",
+      },
+    ],
+  },
+  howItWorks: {
+    sectionTitle: "Simple. Strategic. Results-Driven.",
+    sectionDescription:
+      "A clear legal process built around communication, preparation, and execution.",
+    steps: [
+      {
+        id: "step-1",
+        title: "Consultation",
+        description: "Share your situation and goals in a confidential initial consultation.",
+        icon: "send",
+      },
+      {
+        id: "step-2",
+        title: "Case Strategy",
+        description: "We analyze the facts and craft a legal strategy specific to your case.",
+        icon: "search",
+      },
+      {
+        id: "step-3",
+        title: "Representation",
+        description: "We advocate for your best outcome through negotiation or litigation.",
+        icon: "gavel",
+      },
+    ],
+  },
+  team: {
+    sectionTitle: "Our Team",
+    sectionDescription: "Experienced legal professionals dedicated to your case.",
+    members: [
+      {
+        id: "enoch-hicks",
+        name: "Enoch P. Hicks",
+        role: "Georgia Lawyer",
+        bio: "Attorney focused on practical legal strategy and strong client representation.",
+        image: "",
+      },
+    ],
+  },
+  contact: {
+    phone: "678-977-8297",
+    email: "eph@ephfirm.com",
     address: {
-      street: row.address_street || '',
-      city: row.address_city || '',
-      state: row.address_state || '',
-      zip: row.address_zip || '',
+      street: "279 Washington Avenue",
+      city: "Marietta",
+      state: "GA",
+      zip: "30060",
     },
     hours: {
-      weekdays: row.hours_weekdays || '',
-      saturday: row.hours_saturday || '',
-      sunday: row.hours_sunday || '',
+      weekdays: "9:00 AM - 5:00 PM",
+      saturday: "By Appointment",
+      sunday: "Closed",
     },
-    serviceAreas: Array.isArray(row.service_areas) ? row.service_areas : [],
+    serviceAreas: ["Cobb County", "Marietta", "Atlanta Metro", "Statewide Georgia"],
     social: {
-      facebook: row.social_facebook || '',
-      linkedin: row.social_linkedin || '',
-      twitter: row.social_twitter || '',
+      facebook: "",
+      linkedin: "",
+      twitter: "",
     },
-  };
+  },
+  blog: {
+    sectionTitle: "Latest Legal Insights",
+    sectionDescription: "Helpful legal guidance, case insights, and practical tips.",
+    posts: [
+      {
+        id: "1",
+        title: "Pet Trust Lawyer in Georgia",
+        category: "Estate Planning",
+        excerpt: "How pet trusts help protect companion animals when life changes unexpectedly.",
+        date: "2025-03-04",
+        image: "",
+        link: "/blog/pet-trust-lawyer-georgia",
+        content: "",
+      },
+      {
+        id: "2",
+        title: "How to Report and Resolve a Car Accident Claim",
+        category: "Personal Injury",
+        excerpt: "A practical step-by-step guide for handling auto accident insurance claims.",
+        date: "2025-03-04",
+        image: "",
+        link: "/blog/car-accident-claim",
+        content: "",
+      },
+      {
+        id: "3",
+        title: "What is a Fractional General Counsel?",
+        category: "Business Law",
+        excerpt: "How growing businesses can access ongoing legal strategy without full-time overhead.",
+        date: "2025-03-04",
+        image: "",
+        link: "/blog/fractional-general-counsel",
+        content: "",
+      },
+    ],
+  },
+  quote: {
+    author: "Enoch P. Hicks",
+    quote:
+      "My mission is simple: deliver clear counsel, strategic advocacy, and results my clients can trust.",
+  },
+  siteSettings: {
+    siteName: "Law Office of Enoch P. Hicks",
+    logo: "",
+    favicon: "",
+    copyright: "© 2025 Law Office of Enoch P. Hicks. All rights reserved.",
+    metaDescription: "Trusted Georgia legal counsel for business law, personal injury, and estate planning.",
+  },
+};
+
+function deepClone<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
 }
 
-function transformQuoteRow(row: any): QuoteContent {
+function isBrowser(): boolean {
+  return typeof window !== "undefined";
+}
+
+function mergeContent(defaults: AllContent, overrides: Partial<AllContent>): AllContent {
   return {
-    author: row.author || '',
-    quote: row.quote || '',
+    ...defaults,
+    ...overrides,
+    hero: { ...defaults.hero, ...(overrides.hero || {}) },
+    practiceAreas: {
+      ...defaults.practiceAreas,
+      ...(overrides.practiceAreas || {}),
+      areas: overrides.practiceAreas?.areas || defaults.practiceAreas.areas,
+    },
+    howItWorks: {
+      ...defaults.howItWorks,
+      ...(overrides.howItWorks || {}),
+      steps: overrides.howItWorks?.steps || defaults.howItWorks.steps,
+    },
+    team: {
+      ...defaults.team,
+      ...(overrides.team || {}),
+      members: overrides.team?.members || defaults.team.members,
+    },
+    contact: {
+      ...defaults.contact,
+      ...(overrides.contact || {}),
+      address: { ...defaults.contact.address, ...(overrides.contact?.address || {}) },
+      hours: { ...defaults.contact.hours, ...(overrides.contact?.hours || {}) },
+      social: { ...defaults.contact.social, ...(overrides.contact?.social || {}) },
+      serviceAreas: overrides.contact?.serviceAreas || defaults.contact.serviceAreas,
+    },
+    blog: {
+      ...defaults.blog,
+      ...(overrides.blog || {}),
+      posts: overrides.blog?.posts || defaults.blog.posts,
+    },
+    quote: { ...defaults.quote, ...(overrides.quote || {}) },
+    siteSettings: { ...defaults.siteSettings, ...(overrides.siteSettings || {}) },
   };
 }
 
-function transformSiteSettingsRow(row: any): SiteSettings {
-  return {
-    siteName: row.site_name || '',
-    logo: row.logo || '',
-    favicon: row.favicon || '',
-    copyright: row.copyright || '',
-    metaDescription: row.meta_description || '',
-  };
-}
-
-// API Functions
-export async function fetchAllContent(): Promise<AllContent> {
-  try {
-    // Fetch all single-row tables
-    const [heroRow, blogRow, quoteRow, contactRow, practiceAreasRow, howItWorksRow, teamRow, siteSettingsRow] = await Promise.all([
-      getSingleRow('hero'),
-      getSingleRow<BlogRow>('blog'),
-      getSingleRow('quote'),
-      getSingleRow('contact'),
-      getSingleRow<PracticeAreasRow>('practice_areas'),
-      getSingleRow<HowItWorksRow>('how_it_works'),
-      getSingleRow<TeamRow>('team'),
-      getSingleRow('site_settings'),
-    ]);
-
-    // Fetch collections
-    const { data: blogPosts } = await supabase
-      .from('blog_posts')
-      .select('*')
-      .order('order_index', { ascending: true });
-
-    const { data: practiceAreaItems } = await supabase
-      .from('practice_area_items')
-      .select('*')
-      .order('order_index', { ascending: true });
-
-    const { data: howItWorksSteps } = await supabase
-      .from('how_it_works_steps')
-      .select('*')
-      .order('order_index', { ascending: true });
-
-    const { data: teamMembers } = await supabase
-      .from('team_members')
-      .select('*')
-      .order('order_index', { ascending: true });
-
-    // Transform to API format
-    const hero = heroRow ? transformHeroRow(heroRow) : {
-      heading: '',
-      subheading: '',
-      tagline: '',
-      ctaText: '',
-      ctaLink: '',
-    };
-
-    const blog: BlogContent = {
-      sectionTitle: (blogRow as BlogRow | null)?.section_title || '',
-      sectionDescription: (blogRow as BlogRow | null)?.section_description || '',
-      posts: (blogPosts || []).map((post: any) => ({
-        id: post.id,
-        title: post.title || '',
-        category: post.category || '',
-        excerpt: post.excerpt || '',
-        date: post.date || '',
-        image: post.image || '',
-        link: post.link || '',
-        content: post.content || '',
-      })),
-    };
-
-    const practiceAreas: PracticeAreasContent = {
-      sectionTitle: (practiceAreasRow as PracticeAreasRow | null)?.section_title || '',
-      sectionDescription: (practiceAreasRow as PracticeAreasRow | null)?.section_description || '',
-      areas: (practiceAreaItems || []).map((item: any) => ({
-        id: item.id,
-        title: item.title || '',
-        description: item.description || '',
-        icon: item.icon || '',
-        link: item.link || '',
-      })),
-    };
-
-    const howItWorks: HowItWorksContent = {
-      sectionTitle: (howItWorksRow as HowItWorksRow | null)?.section_title || '',
-      sectionDescription: (howItWorksRow as HowItWorksRow | null)?.section_description || '',
-      steps: (howItWorksSteps || []).map((step: any) => ({
-        id: step.id,
-        title: step.title || '',
-        description: step.description || '',
-        icon: step.icon || '',
-      })),
-    };
-
-    const team: TeamContent = {
-      sectionTitle: (teamRow as TeamRow | null)?.section_title || '',
-      sectionDescription: (teamRow as TeamRow | null)?.section_description || '',
-      members: (teamMembers || []).map((member: any) => ({
-        id: member.id,
-        name: member.name || '',
-        role: member.role || '',
-        bio: member.bio || '',
-        image: member.image || '',
-      })),
-    };
-
-    const contact = contactRow ? transformContactRow(contactRow) : {
-      phone: '',
-      email: '',
-      address: { street: '', city: '', state: '', zip: '' },
-      hours: { weekdays: '', saturday: '', sunday: '' },
-      serviceAreas: [],
-      social: { facebook: '', linkedin: '', twitter: '' },
-    };
-
-    const quote = quoteRow ? transformQuoteRow(quoteRow) : {
-      author: '',
-      quote: '',
-    };
-
-    const siteSettings = siteSettingsRow ? transformSiteSettingsRow(siteSettingsRow) : {
-      siteName: '',
-      logo: '',
-      favicon: '',
-      copyright: '',
-      metaDescription: '',
-    };
-
-    return {
-      hero,
-      practiceAreas,
-      howItWorks,
-      team,
-      contact,
-      blog,
-      quote,
-      siteSettings,
-    };
-  } catch (error) {
-    console.error('Error fetching all content:', error);
-    throw new Error('Failed to fetch content');
+function readContentFromStorage(): AllContent {
+  if (!isBrowser()) {
+    return deepClone(DEFAULT_CONTENT);
   }
+
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      return deepClone(DEFAULT_CONTENT);
+    }
+    const parsed = JSON.parse(raw) as Partial<AllContent>;
+    return mergeContent(deepClone(DEFAULT_CONTENT), parsed);
+  } catch (error) {
+    console.error("Failed to read local content cache:", error);
+    return deepClone(DEFAULT_CONTENT);
+  }
+}
+
+function writeContentToStorage(content: AllContent): void {
+  if (!isBrowser()) {
+    return;
+  }
+
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+  } catch (error) {
+    console.error("Failed to save local content cache:", error);
+  }
+}
+
+export async function fetchAllContent(): Promise<AllContent> {
+  return readContentFromStorage();
 }
 
 export async function fetchSection<T>(section: string): Promise<T> {
-  try {
-    switch (section) {
-      case 'hero': {
-        const row = await getSingleRow('hero');
-        return (row ? transformHeroRow(row) : null) as T;
-      }
-      case 'blog': {
-        const blogRow = await getSingleRow<BlogRow>('blog');
-        const { data: blogPosts } = await supabase
-          .from('blog_posts')
-          .select('*')
-          .order('order_index', { ascending: true });
-        
-        return {
-          sectionTitle: blogRow?.section_title || '',
-          sectionDescription: blogRow?.section_description || '',
-          posts: (blogPosts || []).map((post: any) => ({
-            id: post.id,
-            title: post.title || '',
-            category: post.category || '',
-            excerpt: post.excerpt || '',
-            date: post.date || '',
-            image: post.image || '',
-            link: post.link || '',
-            content: post.content || '',
-          })),
-        } as T;
-      }
-      case 'practiceAreas': {
-        const practiceAreasRow = await getSingleRow<PracticeAreasRow>('practice_areas');
-        const { data: items } = await supabase
-          .from('practice_area_items')
-          .select('*')
-          .order('order_index', { ascending: true });
-        
-        return {
-          sectionTitle: practiceAreasRow?.section_title || '',
-          sectionDescription: practiceAreasRow?.section_description || '',
-          areas: (items || []).map((item: any) => ({
-            id: item.id,
-            title: item.title || '',
-            description: item.description || '',
-            icon: item.icon || '',
-            link: item.link || '',
-          })),
-        } as T;
-      }
-      case 'howItWorks': {
-        const howItWorksRow = await getSingleRow<HowItWorksRow>('how_it_works');
-        const { data: steps } = await supabase
-          .from('how_it_works_steps')
-          .select('*')
-          .order('order_index', { ascending: true });
-        
-        return {
-          sectionTitle: howItWorksRow?.section_title || '',
-          sectionDescription: howItWorksRow?.section_description || '',
-          steps: (steps || []).map((step: any) => ({
-            id: step.id,
-            title: step.title || '',
-            description: step.description || '',
-            icon: step.icon || '',
-          })),
-        } as T;
-      }
-      case 'team': {
-        const teamRow = await getSingleRow<TeamRow>('team');
-        const { data: members } = await supabase
-          .from('team_members')
-          .select('*')
-          .order('order_index', { ascending: true });
-        
-        return {
-          sectionTitle: teamRow?.section_title || '',
-          sectionDescription: teamRow?.section_description || '',
-          members: (members || []).map((member: any) => ({
-            id: member.id,
-            name: member.name || '',
-            role: member.role || '',
-            bio: member.bio || '',
-            image: member.image || '',
-          })),
-        } as T;
-      }
-      case 'contact': {
-        const row = await getSingleRow('contact');
-        return (row ? transformContactRow(row) : null) as T;
-      }
-      case 'quote': {
-        const row = await getSingleRow('quote');
-        return (row ? transformQuoteRow(row) : null) as T;
-      }
-      case 'siteSettings': {
-        const row = await getSingleRow('site_settings');
-        return (row ? transformSiteSettingsRow(row) : null) as T;
-      }
-      default:
-        throw new Error(`Unknown section: ${section}`);
-    }
-  } catch (error) {
-    console.error(`Error fetching ${section}:`, error);
-    throw new Error(`Failed to fetch ${section}`);
+  const content = readContentFromStorage();
+  switch (section) {
+    case "hero":
+      return content.hero as T;
+    case "practiceAreas":
+      return content.practiceAreas as T;
+    case "howItWorks":
+      return content.howItWorks as T;
+    case "team":
+      return content.team as T;
+    case "contact":
+      return content.contact as T;
+    case "blog":
+      return content.blog as T;
+    case "quote":
+      return content.quote as T;
+    case "siteSettings":
+      return content.siteSettings as T;
+    default:
+      throw new Error(`Unknown section: ${section}`);
   }
 }
 
 export async function updateSection(section: string, data: unknown, _token?: string): Promise<void> {
-  // Token is not needed as Supabase client handles auth automatically via session
-  try {
-    switch (section) {
-      case 'hero': {
-        const heroData = data as HeroContent;
-        // Get existing row or create
-        const existing = await getSingleRow('hero');
-        const updateData = {
-          heading: heroData.heading,
-          subheading: heroData.subheading,
-          tagline: heroData.tagline,
-          cta_text: heroData.ctaText,
-          cta_link: heroData.ctaLink,
-          updated_at: new Date().toISOString(),
-        };
+  const content = readContentFromStorage();
 
-        if (existing) {
-          const { error } = await supabase
-            .from('hero')
-            .update(updateData)
-            .eq('id', (existing as { id: string }).id);
-          if (error) throw error;
-        } else {
-          const { error } = await supabase.from('hero').insert(updateData);
-          if (error) throw error;
-        }
-        break;
-      }
-      case 'blog': {
-        const blogData = data as BlogContent;
-        // Update blog metadata
-        const existing = await getSingleRow('blog');
-        const blogMetadata = {
-          section_title: blogData.sectionTitle,
-          section_description: blogData.sectionDescription,
-          updated_at: new Date().toISOString(),
-        };
-
-        if (existing) {
-          await supabase.from('blog').update(blogMetadata).eq('id', (existing as BlogRow).id);
-        } else {
-          const { data: newBlog } = await supabase.from('blog').insert(blogMetadata).select().single();
-          const blogId = newBlog?.id;
-          if (!blogId) throw new Error('Failed to create blog');
-
-          // Insert all posts
-          for (let i = 0; i < blogData.posts.length; i++) {
-            const post = blogData.posts[i];
-            await supabase.from('blog_posts').insert({
-              blog_id: blogId,
-              title: post.title,
-              category: post.category,
-              excerpt: post.excerpt,
-              date: post.date,
-              image: post.image,
-              link: post.link,
-              content: post.content || '',
-              order_index: i,
-            });
-          }
-          break;
-        }
-
-        // Get blog_id for posts
-        const blogRow = await getSingleRow<BlogRow>('blog');
-        if (!blogRow) throw new Error('Blog not found');
-
-        // Delete existing posts
-        await supabase.from('blog_posts').delete().eq('blog_id', blogRow.id);
-
-        // Insert new posts
-        for (let i = 0; i < blogData.posts.length; i++) {
-          const post = blogData.posts[i];
-          await supabase.from('blog_posts').insert({
-            blog_id: blogRow.id,
-            title: post.title,
-            category: post.category,
-            excerpt: post.excerpt,
-            date: post.date,
-            image: post.image,
-            link: post.link,
-            order_index: i,
-          });
-        }
-        break;
-      }
-      case 'practiceAreas': {
-        const practiceAreasData = data as PracticeAreasContent;
-        const existing = await getSingleRow('practice_areas');
-        const metadata = {
-          section_title: practiceAreasData.sectionTitle,
-          section_description: practiceAreasData.sectionDescription,
-          updated_at: new Date().toISOString(),
-        };
-
-        let practiceAreaId: string;
-        if (existing) {
-          practiceAreaId = (existing as any).id;
-          await supabase.from('practice_areas').update(metadata).eq('id', practiceAreaId);
-        } else {
-          const { data: newRow } = await supabase.from('practice_areas').insert(metadata).select().single();
-          practiceAreaId = (newRow as any).id;
-        }
-
-        // Delete existing items
-        await supabase.from('practice_area_items').delete().eq('practice_area_id', practiceAreaId);
-
-        // Insert new items
-        for (let i = 0; i < practiceAreasData.areas.length; i++) {
-          const area = practiceAreasData.areas[i];
-          await supabase.from('practice_area_items').insert({
-            practice_area_id: practiceAreaId,
-            title: area.title,
-            description: area.description,
-            icon: area.icon,
-            link: area.link,
-            order_index: i,
-          });
-        }
-        break;
-      }
-      case 'howItWorks': {
-        const howItWorksData = data as HowItWorksContent;
-        const existing = await getSingleRow('how_it_works');
-        const metadata = {
-          section_title: howItWorksData.sectionTitle,
-          section_description: howItWorksData.sectionDescription,
-          updated_at: new Date().toISOString(),
-        };
-
-        let howItWorksId: string;
-        if (existing) {
-          howItWorksId = (existing as any).id;
-          await supabase.from('how_it_works').update(metadata).eq('id', howItWorksId);
-        } else {
-          const { data: newRow } = await supabase.from('how_it_works').insert(metadata).select().single();
-          howItWorksId = (newRow as any).id;
-        }
-
-        // Delete existing steps
-        await supabase.from('how_it_works_steps').delete().eq('how_it_works_id', howItWorksId);
-
-        // Insert new steps
-        for (let i = 0; i < howItWorksData.steps.length; i++) {
-          const step = howItWorksData.steps[i];
-          await supabase.from('how_it_works_steps').insert({
-            how_it_works_id: howItWorksId,
-            title: step.title,
-            description: step.description,
-            icon: step.icon,
-            order_index: i,
-          });
-        }
-        break;
-      }
-      case 'team': {
-        const teamData = data as TeamContent;
-        const existing = await getSingleRow('team');
-        const metadata = {
-          section_title: teamData.sectionTitle,
-          section_description: teamData.sectionDescription,
-          updated_at: new Date().toISOString(),
-        };
-
-        let teamId: string;
-        if (existing) {
-          teamId = (existing as any).id;
-          await supabase.from('team').update(metadata).eq('id', teamId);
-        } else {
-          const { data: newRow } = await supabase.from('team').insert(metadata).select().single();
-          teamId = (newRow as any).id;
-        }
-
-        // Delete existing members
-        await supabase.from('team_members').delete().eq('team_id', teamId);
-
-        // Insert new members
-        for (let i = 0; i < teamData.members.length; i++) {
-          const member = teamData.members[i];
-          await supabase.from('team_members').insert({
-            team_id: teamId,
-            name: member.name,
-            role: member.role,
-            bio: member.bio,
-            image: member.image,
-            order_index: i,
-          });
-        }
-        break;
-      }
-      case 'contact': {
-        const contactData = data as ContactContent;
-        const existing = await getSingleRow('contact');
-        const updateData = {
-          phone: contactData.phone,
-          email: contactData.email,
-          address_street: contactData.address.street,
-          address_city: contactData.address.city,
-          address_state: contactData.address.state,
-          address_zip: contactData.address.zip,
-          hours_weekdays: contactData.hours.weekdays,
-          hours_saturday: contactData.hours.saturday,
-          hours_sunday: contactData.hours.sunday,
-          service_areas: contactData.serviceAreas,
-          social_facebook: contactData.social.facebook,
-          social_linkedin: contactData.social.linkedin,
-          social_twitter: contactData.social.twitter,
-          updated_at: new Date().toISOString(),
-        };
-
-        if (existing) {
-          const { error } = await supabase.from('contact').update(updateData).eq('id', (existing as any).id);
-          if (error) throw error;
-        } else {
-          const { error } = await supabase.from('contact').insert(updateData);
-          if (error) throw error;
-        }
-        break;
-      }
-      case 'quote': {
-        const quoteData = data as QuoteContent;
-        const existing = await getSingleRow('quote');
-        const updateData = {
-          author: quoteData.author,
-          quote: quoteData.quote,
-          updated_at: new Date().toISOString(),
-        };
-
-        if (existing) {
-          const { error } = await supabase.from('quote').update(updateData).eq('id', (existing as any).id);
-          if (error) throw error;
-        } else {
-          const { error } = await supabase.from('quote').insert(updateData);
-          if (error) throw error;
-        }
-        break;
-      }
-      case 'siteSettings': {
-        const settingsData = data as SiteSettings;
-        const existing = await getSingleRow('site_settings');
-        const updateData = {
-          site_name: settingsData.siteName,
-          logo: settingsData.logo,
-          favicon: settingsData.favicon,
-          copyright: settingsData.copyright,
-          meta_description: settingsData.metaDescription,
-          updated_at: new Date().toISOString(),
-        };
-
-        if (existing) {
-          const { error } = await supabase.from('site_settings').update(updateData).eq('id', (existing as any).id);
-          if (error) throw error;
-        } else {
-          const { error } = await supabase.from('site_settings').insert(updateData);
-          if (error) throw error;
-        }
-        break;
-      }
-      default:
-        throw new Error(`Unknown section: ${section}`);
-    }
-  } catch (error) {
-    console.error(`Error updating ${section}:`, error);
-    throw new Error(`Failed to update ${section}`);
+  switch (section) {
+    case "hero":
+      content.hero = data as HeroContent;
+      break;
+    case "practiceAreas":
+      content.practiceAreas = data as PracticeAreasContent;
+      break;
+    case "howItWorks":
+      content.howItWorks = data as HowItWorksContent;
+      break;
+    case "team":
+      content.team = data as TeamContent;
+      break;
+    case "contact":
+      content.contact = data as ContactContent;
+      break;
+    case "blog":
+      content.blog = data as BlogContent;
+      break;
+    case "quote":
+      content.quote = data as QuoteContent;
+      break;
+    case "siteSettings":
+      content.siteSettings = data as SiteSettings;
+      break;
+    default:
+      throw new Error(`Unknown section: ${section}`);
   }
+
+  writeContentToStorage(content);
 }
 
-// Note: Image upload would need Supabase Storage integration
-// For now, this is a placeholder - images should be uploaded via Supabase Storage
 export async function uploadImage(_file: File, _token?: string): Promise<{ url: string }> {
-  // TODO: Implement Supabase Storage upload
-  throw new Error('Image upload not yet implemented with Supabase Storage');
+  throw new Error("Image upload not yet implemented. Please use image URLs directly.");
 }
 
-// Contact form submission
 export async function submitContact(data: {
   name: string;
   email: string;
@@ -728,19 +410,19 @@ export async function submitContact(data: {
   subject: string;
   message: string;
 }): Promise<void> {
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+  const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
   const response = await fetch(`${apiUrl}/api/contact`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({ error: 'Failed to submit contact form' }));
-    throw new Error(error.error || 'Failed to submit contact form');
+    const error = await response.json().catch(() => ({ error: "Failed to submit contact form" }));
+    throw new Error(error.error || "Failed to submit contact form");
   }
 
-  return response.json();
+  await response.json();
 }

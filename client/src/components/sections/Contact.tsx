@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, CheckCircle2 } from "lucide-react";
 import { submitContact } from "@/lib/api";
 import type { ContactContent } from "@/lib/api";
 
@@ -46,63 +46,63 @@ export function Contact({ content }: ContactProps) {
   ];
 
   return (
-    <section className="py-16 md:py-24 lg:py-32 bg-white" id="contact">
-      <div className="container mx-auto px-4">
+    <section className="py-16 md:py-32 bg-[#fdfbf7]" id="contact">
+      <div className="container mx-auto px-6">
         <BlurFade delay={0.1} inView>
-          <div className="text-center mb-24">
-            <h2 className="text-sm uppercase tracking-[0.4em] font-bold text-primary mb-4">
+          <div className="text-center mb-16 md:mb-24">
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
               Get In Touch
             </h2>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-secondary max-w-3xl mx-auto leading-tight">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-secondary max-w-3xl mx-auto tracking-tight">
               Schedule Your Free Consultation
             </h3>
-            <p className="mt-6 text-base md:text-lg text-gray-500 max-w-2xl mx-auto">
+            <p className="mt-6 text-lg text-slate-600 max-w-2xl mx-auto font-light">
               Our team is ready to provide the guidance and representation you deserve.
             </p>
           </div>
         </BlurFade>
 
-        <div className="grid lg:grid-cols-2 gap-12 md:gap-20 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 max-w-6xl mx-auto">
           {/* Contact Info */}
           <BlurFade delay={0.2} inView>
             <div className="space-y-12">
-              <div className="flex items-start gap-6">
-                <div className="w-16 h-16 rounded-none bg-slate-50 border border-gray-100 flex items-center justify-center flex-shrink-0 group hover:bg-primary/10 transition-colors">
-                  <Phone className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+              <div className="flex items-start gap-6 group">
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors duration-300">
+                  <Phone className="w-6 h-6 text-primary group-hover:text-white transition-colors duration-300" />
                 </div>
                 <div>
-                  <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">Phone</h4>
+                  <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Phone</h4>
                   <a
                     href={`tel:${content.phone}`}
-                    className="text-xl md:text-2xl font-serif font-bold text-secondary hover:text-primary transition-colors"
+                    className="text-2xl font-bold text-secondary hover:text-primary transition-colors"
                   >
                     {content.phone}
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-6">
-                <div className="w-16 h-16 rounded-none bg-slate-50 border border-gray-100 flex items-center justify-center flex-shrink-0 group hover:bg-primary/10 transition-colors">
-                  <Mail className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+              <div className="flex items-start gap-6 group">
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors duration-300">
+                  <Mail className="w-6 h-6 text-primary group-hover:text-white transition-colors duration-300" />
                 </div>
                 <div>
-                  <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">Email</h4>
+                  <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Email</h4>
                   <a
                     href={`mailto:${content.email}`}
-                    className="text-xl md:text-2xl font-serif font-bold text-secondary hover:text-primary transition-colors break-all"
+                    className="text-xl md:text-2xl font-bold text-secondary hover:text-primary transition-colors break-all"
                   >
                     {content.email}
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-6">
-                <div className="w-16 h-16 rounded-none bg-slate-50 border border-gray-100 flex items-center justify-center flex-shrink-0 group hover:bg-primary/10 transition-colors">
-                  <MapPin className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+              <div className="flex items-start gap-6 group">
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors duration-300">
+                  <MapPin className="w-6 h-6 text-primary group-hover:text-white transition-colors duration-300" />
                 </div>
                 <div>
-                  <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 mb-2">Location</h4>
-                  <p className="text-lg md:text-xl font-serif font-bold text-secondary">
+                  <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Location</h4>
+                  <p className="text-lg md:text-xl font-bold text-secondary leading-snug">
                     {content.address.street}
                     <br />
                     {content.address.city}, {content.address.state} {content.address.zip}
@@ -110,13 +110,13 @@ export function Contact({ content }: ContactProps) {
                 </div>
               </div>
 
-              <div className="pt-8 border-t border-gray-100">
-                <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-gray-400 mb-6">Service Areas</h4>
-                <div className="flex flex-wrap gap-3">
+              <div className="pt-10 border-t border-slate-200">
+                <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Service Areas</h4>
+                <div className="flex flex-wrap gap-2">
                   {content.serviceAreas.map((area) => (
                     <span
                       key={area}
-                      className="px-4 py-2 bg-slate-50 text-[10px] uppercase tracking-widest font-bold text-secondary border border-gray-100"
+                      className="px-4 py-2 bg-white text-sm font-medium text-secondary rounded-full border border-primary/20"
                     >
                       {area}
                     </span>
@@ -128,47 +128,34 @@ export function Contact({ content }: ContactProps) {
 
           {/* Contact Form */}
           <BlurFade delay={0.3} inView>
-            <div className="p-10 bg-white border border-gray-100 shadow-2xl relative">
-              <div className="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+            <div className="bg-white p-8 md:p-12 rounded-3xl border border-primary/10 shadow-2xl shadow-primary/5">
               {submitted ? (
-                <div className="text-center py-12">
-                  <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg
-                      className="w-10 h-10 text-primary"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
+                <div className="text-center py-16">
+                  <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle2 className="w-10 h-10 text-green-600" />
                   </div>
-                  <h3 className="text-2xl font-serif font-bold text-secondary mb-4">
+                  <h3 className="text-3xl font-bold text-secondary mb-4 tracking-tight">
                     Message Received
                   </h3>
-                  <p className="text-gray-500 mb-8">
+                  <p className="text-slate-600 mb-10 font-light text-lg">
                     Thank you for reaching out. We will contact you shortly to schedule your consultation.
                   </p>
                   <Button
                     onClick={() => setSubmitted(false)}
                     variant="outline"
-                    className="border-primary text-primary rounded-none hover:bg-primary hover:text-white uppercase tracking-widest text-[10px] font-bold px-8"
+                    className="h-14 px-8 rounded-full border-primary text-primary hover:bg-primary/5 font-semibold"
                   >
                     Send Another Message
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
-                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                    <div className="space-y-3">
-                      <Label htmlFor="name" className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Full Name</Label>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-sm font-medium text-slate-700">Full Name</Label>
                       <Input
                         id="name"
-                        className="rounded-none border-0 border-b-2 border-gray-100 focus-visible:ring-0 focus-visible:border-primary px-0 transition-colors bg-transparent"
+                        className="h-12 rounded-xl border-slate-200 bg-slate-50 focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary focus-visible:bg-white transition-colors"
                         value={formData.name}
                         onChange={(e) =>
                           setFormData({ ...formData, name: e.target.value })
@@ -177,12 +164,12 @@ export function Contact({ content }: ContactProps) {
                         placeholder="John Doe"
                       />
                     </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="email" className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Email Address</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-sm font-medium text-slate-700">Email Address</Label>
                       <Input
                         id="email"
                         type="email"
-                        className="rounded-none border-0 border-b-2 border-gray-100 focus-visible:ring-0 focus-visible:border-primary px-0 transition-colors bg-transparent"
+                        className="h-12 rounded-xl border-slate-200 bg-slate-50 focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary focus-visible:bg-white transition-colors"
                         value={formData.email}
                         onChange={(e) =>
                           setFormData({ ...formData, email: e.target.value })
@@ -193,13 +180,13 @@ export function Contact({ content }: ContactProps) {
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                    <div className="space-y-3">
-                      <Label htmlFor="phone" className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Phone Number</Label>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className="text-sm font-medium text-slate-700">Phone Number</Label>
                       <Input
                         id="phone"
                         type="tel"
-                        className="rounded-none border-0 border-b-2 border-gray-100 focus-visible:ring-0 focus-visible:border-primary px-0 transition-colors bg-transparent"
+                        className="h-12 rounded-xl border-slate-200 bg-slate-50 focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary focus-visible:bg-white transition-colors"
                         value={formData.phone}
                         onChange={(e) =>
                           setFormData({ ...formData, phone: e.target.value })
@@ -207,15 +194,15 @@ export function Contact({ content }: ContactProps) {
                         placeholder="(555) 000-0000"
                       />
                     </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="subject" className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Practice Area</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="subject" className="text-sm font-medium text-slate-700">Practice Area</Label>
                       <select
                         id="subject"
                         value={formData.subject}
                         onChange={(e) =>
                           setFormData({ ...formData, subject: e.target.value })
                         }
-                        className="w-full h-10 rounded-none border-0 border-b-2 border-gray-100 focus:outline-none focus:border-primary bg-transparent text-sm transition-colors"
+                        className="w-full h-12 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary focus:bg-white transition-colors"
                       >
                         {subjects.map((subject) => (
                           <option key={subject} value={subject}>
@@ -226,11 +213,11 @@ export function Contact({ content }: ContactProps) {
                     </div>
                   </div>
 
-                  <div className="space-y-3">
-                    <Label htmlFor="message" className="text-[10px] uppercase tracking-widest font-bold text-gray-400">Your Message</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-sm font-medium text-slate-700">Your Message</Label>
                     <Textarea
                       id="message"
-                      className="rounded-none border-0 border-b-2 border-gray-100 focus-visible:ring-0 focus-visible:border-primary px-0 transition-colors bg-transparent min-h-[120px] resize-none"
+                      className="min-h-[160px] rounded-xl border-slate-200 bg-slate-50 focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary focus-visible:bg-white transition-colors resize-none p-4"
                       value={formData.message}
                       onChange={(e) =>
                         setFormData({ ...formData, message: e.target.value })
@@ -242,7 +229,7 @@ export function Contact({ content }: ContactProps) {
 
                   <Button
                     type="submit"
-                    className="w-full bg-primary hover:bg-primary/90 text-white rounded-none h-14 uppercase tracking-[0.2em] font-bold text-xs transition-all duration-300 shadow-xl shadow-primary/20"
+                    className="w-full h-14 rounded-xl bg-primary text-white hover:bg-primary/90 font-semibold text-base transition-all mt-4 shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:-translate-y-0.5"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Sending..." : "Request Free Consultation"}

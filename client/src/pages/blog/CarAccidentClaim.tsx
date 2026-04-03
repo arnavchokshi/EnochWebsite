@@ -63,7 +63,7 @@ export function CarAccidentClaim() {
       
       {/* Hero Section */}
       <section 
-        className="py-16 md:py-24 relative overflow-hidden"
+        className="legal-section py-16 md:py-24 relative overflow-hidden"
         style={{
           backgroundImage: `url(${scottGraham})`,
           backgroundSize: 'cover',
@@ -99,7 +99,7 @@ export function CarAccidentClaim() {
       </section>
 
       {/* Blog Content */}
-      <section className="py-8 md:py-12 lg:py-16 bg-white">
+      <section className="legal-section py-8 md:py-12 lg:py-16 bg-[#f8f5ef]">
         <div className="container mx-auto px-4">
           <BlurFade delay={0.2} inView>
             <div className="max-w-4xl mx-auto prose prose-lg max-w-none">

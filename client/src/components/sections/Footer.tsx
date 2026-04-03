@@ -25,32 +25,28 @@ export function Footer({ contact, settings }: FooterProps) {
   ];
 
   return (
-    <footer className="relative bg-secondary text-white py-24 overflow-hidden border-t-4 border-primary">
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px]"></div>
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
+    <footer className="bg-[#0f2237] text-white py-12 md:py-20 border-t-4 border-primary">
+      <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-16 mb-20">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <h3 className="font-serif text-2xl font-bold mb-6 tracking-tight uppercase">
+            <h3 className="text-2xl font-bold mb-6 tracking-tight">
               {settings.siteName}
             </h3>
-            <p className="text-gray-300 text-sm leading-relaxed mb-8 max-w-xs">
+            <p className="text-slate-300 text-sm leading-relaxed mb-8 max-w-xs font-light">
               Providing premium legal representation with justice, integrity, and exceptional results for Cobb County and surrounding areas.
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300"
+                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 text-white border border-white/10 hover:border-primary"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
@@ -58,21 +54,21 @@ export function Footer({ contact, settings }: FooterProps) {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-primary mb-8">Quick Links</h4>
+            <h4 className="text-sm font-semibold text-primary uppercase tracking-wider mb-8">Quick Links</h4>
             <ul className="space-y-4">
               {navLinks.map((link) => (
                 <li key={link.label}>
                   {link.href.startsWith('#') ? (
                     <a
                       href={link.href}
-                      className="text-gray-300 hover:text-primary transition-colors text-xs uppercase tracking-widest font-bold"
+                      className="text-slate-300 hover:text-primary transition-colors text-sm font-medium"
                     >
                       {link.label}
                     </a>
                   ) : (
                     <Link
                       to={link.href}
-                      className="text-gray-300 hover:text-primary transition-colors text-xs uppercase tracking-widest font-bold"
+                      className="text-slate-300 hover:text-primary transition-colors text-sm font-medium"
                     >
                       {link.label}
                     </Link>
@@ -84,29 +80,29 @@ export function Footer({ contact, settings }: FooterProps) {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-primary mb-8">Contact Us</h4>
+            <h4 className="text-sm font-semibold text-primary uppercase tracking-wider mb-8">Contact Us</h4>
             <ul className="space-y-6">
               <li className="flex items-center gap-4 group">
-                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors">
-                  <Phone className="w-4 h-4 text-primary group-hover:text-white" />
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors border border-white/10 group-hover:border-primary">
+                  <Phone className="w-4 h-4 text-white group-hover:text-white transition-colors" />
                 </div>
-                <a href={`tel:${contact.phone}`} className="text-sm text-gray-300 hover:text-white transition-colors">
+                <a href={`tel:${contact.phone}`} className="text-sm font-medium text-slate-300 hover:text-primary transition-colors">
                   {contact.phone}
                 </a>
               </li>
               <li className="flex items-center gap-4 group">
-                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors">
-                  <Mail className="w-4 h-4 text-primary group-hover:text-white" />
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors border border-white/10 group-hover:border-primary">
+                  <Mail className="w-4 h-4 text-white group-hover:text-white transition-colors" />
                 </div>
-                <a href={`mailto:${contact.email}`} className="text-sm text-gray-300 hover:text-white transition-colors break-all">
+                <a href={`mailto:${contact.email}`} className="text-sm font-medium text-slate-300 hover:text-primary transition-colors break-all">
                   {contact.email}
                 </a>
               </li>
               <li className="flex items-start gap-4 group">
-                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors mt-1">
-                  <MapPin className="w-4 h-4 text-primary group-hover:text-white" />
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors flex-shrink-0 border border-white/10 group-hover:border-primary">
+                  <MapPin className="w-4 h-4 text-white group-hover:text-white transition-colors" />
                 </div>
-                <span className="text-sm text-gray-300">
+                <span className="text-sm font-medium text-slate-300 leading-relaxed pt-2">
                   {contact.address.street}
                   <br />
                   {contact.address.city}, {contact.address.state} {contact.address.zip}
@@ -117,36 +113,36 @@ export function Footer({ contact, settings }: FooterProps) {
 
           {/* Office Hours */}
           <div>
-            <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-primary mb-8">Office Hours</h4>
-            <ul className="space-y-4 text-sm text-gray-300">
-              <li className="flex justify-between border-b border-white/10 pb-2">
-                <span className="font-bold text-[10px] uppercase tracking-widest">Mon - Fri</span>
-                <span>{contact.hours.weekdays}</span>
+            <h4 className="text-sm font-semibold text-primary uppercase tracking-wider mb-8">Office Hours</h4>
+            <ul className="space-y-4 text-sm text-slate-300">
+              <li className="flex justify-between border-b border-white/10 pb-3">
+                <span className="font-semibold text-white/80">Mon - Fri</span>
+                <span className="font-light">{contact.hours.weekdays}</span>
               </li>
-              <li className="flex justify-between border-b border-white/10 pb-2">
-                <span className="font-bold text-[10px] uppercase tracking-widest">Saturday</span>
-                <span>{contact.hours.saturday}</span>
+              <li className="flex justify-between border-b border-white/10 pb-3">
+                <span className="font-semibold text-white/80">Saturday</span>
+                <span className="font-light">{contact.hours.saturday}</span>
               </li>
-              <li className="flex justify-between border-b border-white/10 pb-2">
-                <span className="font-bold text-[10px] uppercase tracking-widest">Sunday</span>
-                <span>{contact.hours.sunday}</span>
+              <li className="flex justify-between border-b border-white/10 pb-3">
+                <span className="font-semibold text-white/80">Sunday</span>
+                <span className="font-light">{contact.hours.sunday}</span>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-sm font-medium text-slate-400">
             {settings.copyright.replace("2025", String(currentYear))}
           </p>
           <div className="flex items-center gap-6">
-            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">
+            <p className="text-sm font-medium text-slate-400">
               Attorney Advertising
             </p>
             <Link
               to="/admin/login"
-              className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 hover:text-gray-400 transition-colors"
+              className="text-sm font-medium text-slate-400 hover:text-primary transition-colors"
             >
               Admin
             </Link>
